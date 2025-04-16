@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>俄罗斯方块</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            background: #2c3e50;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        #game-container {
+            position: relative;
+            margin-top: 50px;
+        }
+
+        #tetris {
+            border: 2px solid #34495e;
+            background: #000;
+        }
+
+        #score-board {
+            position: absolute;
+            left: 320px;
+            top: 0;
+            color: #fff;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            width: 180px;
+        }
+
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff0000;
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 2px 2px #000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="tetris" width="300" height="600"></canvas>
+        <div id="score-board">
+            <h2>得分: <span id="score">0</span></h2>
+            <h3>下一个:</h3>
+            <canvas id="next" width="120" height="120"></canvas>
+            <h2>操作说明：</h2>
+            <ul>
+                <li>按 Enter 开始游戏</li>
+                <li>← →：左右移动</li>
+                <li>↑：顺时针旋转</li>
+                <li>Z：逆时针旋转</li>
+                <li>↓：加速降落</li>
+                <li>空格：直接降落</li>
+                <li>ESC：重新开始</li>
+            </ul>
+        </div>
+        <div id="game-over">GAME OVER</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('tetris');
+        const ctx = canvas.getContext('2d');
+        const nextCanvas = document.getElementById('next');
+        const nextCtx = nextCanvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const gameOverElement = document.getElementById('game-over');
+
+        let running = false;
+        let gameOver = false;
+
+        const BLOCK_SIZE = 30;
+        const COLS = 10;
+        const ROWS = 20;
+        let score = 0;
+        let lastTime = 0;
+        let dropCounter = 0;
+        let dropInterval = 1000;
+
+        const COLORS = [
+            null,
+            '#FF0D72', '#0DC2FF', '#0DFF72',
+            '#F538FF', '#FF8E0D', '#FFE138',
+            '#3877FF'
+        ];
+
+        const SHAPES = {
+            'I': [
+                [[1], [1], [1], [1]],
+                [[1, 1, 1, 1]]
+            ],
+            'O': [[[4, 4], [4, 4]]],
+            'T': [
+                [[0, 6, 0], [6, 6, 6]],
+                [[6, 0], [6, 6], [6, 0]],
+                [[6, 6, 6], [0, 6, 0]],
+                [[0, 6], [6, 6], [0, 6]]
+            ],
+            'L': [
+                [[0, 0, 2], [2, 2, 2]],
+                [[2, 0], [2, 0], [2, 2]],
+                [[2, 2, 2], [2, 0, 0]],
+                [[2, 2], [0, 2], [0, 2]]
+            ],
+            'J': [
+                [[3, 0, 0], [3, 3, 3]],
+                [[3, 3], [3, 0], [3, 0]],
+                [[3, 3, 3], [0, 0, 3]],
+                [[0, 3], [0, 3], [3, 3]]
+            ],
+            'S': [
+                [[0, 5, 5], [5, 5, 0]],
+                [[5, 0], [5, 5], [0, 5]]
+            ],
+            'Z': [
+                [[7, 7, 0], [0, 7, 7]],
+                [[0, 7], [7, 7], [7, 0]]
+            ]
+        };
+
+        const arena = createMatrix(COLS, ROWS);
+        const player = {
+            pos: { x: 0, y: 0 },
+            matrix: null,
+            rotation: 0,
+            type: null,
+            nextType: null
+        };
+
+        function createMatrix(w, h) {
+            return Array(h).fill().map(() => Array(w).fill(0));
+        }
+
+        const WALL_KICK = {
+            'I': [
+                [[0, 0], [-1, 0], [2, 0], [-1, 2], [2, -1]],
+                [[0, 0], [-2, 0], [1, 0], [-2, -1], [1, 2]],
+                [[0, 0], [1, 0], [-2, 0], [1, -2], [-2, 1]],
+                [[0, 0], [2, 0], [-1, 0], [2, 1], [-1, -2]]
+            ],
+            'default': [
+                [[0, 0], [-1, 0], [-1, 1], [0, -2], [-1, -2]],
+                [[0, 0], [1, 0], [1, -1], [0, 2], [1, 2]],
+                [[0, 0], [1, 0], [1, 1], [0, -2], [1, -2]],
+                [[0, 0], [-1, 0], [-1, -1], [0, 2], [-1, 2]]
+            ]
+        };
+
+        function rotate(shapeType, currentRotation, dir) {
+            if (shapeType === 'O') return currentRotation;
+            const rotations = SHAPES[shapeType].length;
+            return (currentRotation + dir + rotations) % rotations;
+        }
+
+        function collide(arena, player) {
+            const [m, o] = [player.matrix, player.pos];
+            for (let y = 0; y < m.length; y++) {
+                for (let x = 0; x < m[y].length; x++) {
+                    if (m[y][x] !== 0 &&
+                        (arena[y + o.y]?.[x + o.x] !== 0 ||
+                            x + o.x < 0 ||
+                            x + o.x >= COLS ||
+                            y + o.y >= ROWS)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function tryWallKicks(shapeType, testId, pos) {
+            const kicks = shapeType === 'I'
+                ? WALL_KICK.I[testId]
+                : WALL_KICK.default[testId];
+
+            for (const [x, y] of kicks) {
+                pos.x += x;
+                pos.y -= y;
+                if (!collide(arena, player)) return true;
+                pos.x -= x;
+                pos.y += y;
+            }
+            return false;
+        }
+
+        function playerRotate(dir) {
+            const originalRotation = player.rotation;
+            const originalPos = { ...player.pos };
+            const newRotation = rotate(player.type, originalRotation, dir);
+
+            if (player.type !== 'O') {
+                player.matrix = SHAPES[player.type][newRotation];
+                player.rotation = newRotation;
+
+                const rotationDiff = (newRotation - originalRotation + 4) % 4;
+                const testId = (originalRotation * 2 + (dir > 0 ? 0 : 1)) % 4;
+
+                if (!tryWallKicks(player.type, testId, player.pos)) {
+                    player.matrix = SHAPES[player.type][originalRotation];
+                    player.rotation = originalRotation;
+                    player.pos = originalPos;
+                }
+            }
+        }
+
+        function merge(arena, player) {
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value) {
+                        arena[y + player.pos.y][x + player.pos.x] = value;
+                    }
+                });
+            });
+        }
+
+        function arenaSweep() {
+            let rowCount = 1;
+            outer: for (let y = arena.length - 1; y > 0; --y) {
+                for (let x = 0; x < arena[y].length; ++x) {
+                    if (arena[y][x] === 0) continue outer;
+                }
+                const row = arena.splice(y, 1)[0].fill(0);
+                arena.unshift(row);
+                ++y;
+                score += rowCount * 100;
+                rowCount *= 2;
+            }
+        }
+
+        function drawBlock(ctx, x, y, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE,
+                BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+            ctx.strokeStyle = '#222';
+            ctx.strokeRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1,
+                BLOCK_SIZE - 3, BLOCK_SIZE - 3);
+        }
+
+        function draw() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            arena.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value) drawBlock(ctx, x, y, COLORS[value]);
+                });
+            });
+
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value) {
+                        const drawX = x + player.pos.x;
+                        const drawY = y + player.pos.y;
+                        if (drawY >= 0) {
+                            drawBlock(ctx, drawX, drawY, COLORS[value]);
+                        }
+                    }
+                });
+            });
+
+            nextCtx.fillStyle = '#000';
+            nextCtx.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+            if (player.nextType) {
+                const matrix = SHAPES[player.nextType][0];
+                const offsetX = (nextCanvas.width / BLOCK_SIZE - matrix[0].length) / 2 | 0;
+                const offsetY = (nextCanvas.height / BLOCK_SIZE - matrix.length) / 2 | 0;
+                matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value) {
+                            drawBlock(nextCtx, x + offsetX, y + offsetY, COLORS[value]);
+                        }
+                    });
+                });
+            }
+
+            scoreElement.textContent = score;
+            gameOverElement.style.display = gameOver ? 'block' : 'none';
+        }
+
+        function playerMove(dir) {
+            if (!running) return;
+            player.pos.x += dir;
+            if (collide(arena, player)) {
+                player.pos.x -= dir;
+            }
+        }
+
+        function playerDrop() {
+            if (!running) return;
+            player.pos.y++;
+            if (collide(arena, player)) {
+                player.pos.y--;
+                merge(arena, player);
+                playerReset();
+                arenaSweep();
+            }
+            dropCounter = 0;
+        }
+
+        function playerReset() {
+            const pieces = 'IJLOSTZ';
+            player.type = player.nextType || pieces[Math.random() * pieces.length | 0];
+            player.nextType = pieces[Math.random() * pieces.length | 0];
+            player.matrix = SHAPES[player.type][0];
+            player.rotation = 0;
+            player.pos.y = 0;
+            player.pos.x = (COLS / 2 | 0) - (player.matrix[0].length / 2 | 0);
+
+            if (collide(arena, player)) {
+                gameOver = true;
+                running = false;
+            }
+        }
+
+        function update(time = 0) {
+            if (!running) return;
+
+            const deltaTime = time - lastTime;
+            lastTime = time;
+
+            dropCounter += deltaTime;
+            if (dropCounter > dropInterval) {
+                playerDrop();
+            }
+
+            draw();
+            requestAnimationFrame(update);
+        }
+
+        function reset() {
+            gameOver = false;
+            running = false;
+            score = 0;
+            dropInterval = 1000;
+            arena.forEach(row => row.fill(0));
+            player.pos = { x: 0, y: 0 };
+            player.rotation = 0;
+            player.type = null;
+            player.nextType = null;
+            playerReset();
+            draw();
+        }
+
+        document.addEventListener('keydown', event => {
+            gameOverElement.style.display = gameOver ? 'block' : 'none';
+            
+            if (event.keyCode === 13) { // Enter
+                event.preventDefault();
+                if (!running) {
+                    reset();
+                    gameOver = false;
+                    running = true;
+                    lastTime = 0;
+                    update();
+                }
+                return;
+            }
+
+            if (!running) return;
+
+            event.preventDefault();
+            switch (event.keyCode) {
+                case 27: reset(); break; // ESC
+                case 37: playerMove(-1); break; // ←
+                case 39: playerMove(1); break;  // →
+                case 40: playerDrop(); break;    // ↓
+                case 38: playerRotate(1); break; // ↑
+                case 90: playerRotate(-1); break;// Z
+                case 32:  // 空格
+                    while (!collide(arena, player)) player.pos.y++;
+                    player.pos.y--;
+                    merge(arena, player);
+                    playerReset();
+                    arenaSweep();
+                    break;
+            }
+        });
+
+        reset();
+    </script>
+</body>
+</html>
