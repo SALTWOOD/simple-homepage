@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta name="description" content="很难看的个人主页qwq">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页</title>
+
+    <link href="/index.css" rel="stylesheet">
+    <script defer src="/index.js"></script>
+
+    <script>
+        function openInNewTab(url) {
+            window.open(url, '_blank').focus();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="center">
+        <div class="card">
+            <h2>About</h2>
+            <div class="container">
+                <div
+                    style="background-color: #f8f8f8; border: 1px solid #e5e5e5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 12px; padding: 16px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <img src="https://github.com/SALTWOOD.png" alt="头像"
+                            style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <p style="margin: 0; font-size: 15px; color: #444; line-height: 1.5; font-weight: 400;">
+                            <span style="font-size: 20px;">SALTWOOD</span><br>
+                            <span style="font-size: 14px; color: #666;">一个废物</span><br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Websites</h2>
+            <div class="container horizontal-align">
+                <button onclick="openInNewTab('https://travellings.cn/go.html')">开往</button>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Languages</h2>
+            <div class="container badges">
+                <img src="https://img.shields.io/badge/TypeScript-%20?style=flat-square&logo=typescript&logoColor=white&color=3178c6"
+                    alt="TypeScript">
+                <img src="https://img.shields.io/badge/Python-%20?style=flat-square&logo=python&logoColor=white&color=306998"
+                    alt="Python">
+                <img src="https://img.shields.io/badge/.Net-%20?style=flat-square&logo=dotnet&logoColor=white&color=007cdc"
+                    alt=".Net">
+                <img src="https://img.shields.io/badge/PHP-%20?style=flat-square&logo=php&logoColor=white&color=4f5b93"
+                    alt="PHP">
+                <img src="https://img.shields.io/badge/JavaScript-%20?style=flat-square&logo=javascript&logoColor=white&color=f7df1e"
+                    alt="JavaScript">
+                <img src="https://img.shields.io/badge/Node.js-%20?style=flat-square&logo=nodedotjs&logoColor=white&color=339933"
+                    alt="Node.js">
+                <img src="https://img.shields.io/badge/Java-%20?style=flat-square&logo=openjdk&logoColor=white&color=a57829"
+                    alt="Java">
+                <img src="https://img.shields.io/badge/Bun-%20?style=flat-square&logo=bun&logoColor=white&color=000000"
+                    alt="Bun">
+                <img src="https://img.shields.io/badge/Vuetify-%20?style=flat-square&logo=vuetify&logoColor=white&color=1867c0"
+                    alt="Vuetify">
+                <img src="https://img.shields.io/badge/Docker-%20?style=flat-square&logo=docker&logoColor=white&color=0c49c2"
+                    alt="Docker">
+            </div>
+        </div>
+        <div class="card">
+            <h2>Games</h2>
+            <div class="container horizontal-align">
+                <button onclick="openInNewTab('/html/2048.html')">2048</button>
+                <button onclick="openInNewTab('/html/firework.html')">烟花</button>
+                <button onclick="openInNewTab('/html/tetris.html')">俄罗斯方块</button>
+                <button onclick="openInNewTab('/html/minesweeper.html')">扫雷</button>
+                <button onclick="openInNewTab('/html/balls.html')">物理小球</button>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Footer</h2>
+            <div class="container"
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            </div>
+        </div>
+        <div class="card" style="display: none;">
+            <h2>???</h2>
+            <div class="container">
+                <button onclick="openInNewTab('/html/easteregg.html')">???</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
