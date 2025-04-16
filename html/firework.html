@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>烟花</title>
+    <script defer src="https://saltwood.top:3033/script.js"
+        data-website-id="2dd46a5c-5631-48cf-89a3-db399e3c5032"></script>
+        
+    <script defer src="/index.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+            filter: blur(1px);
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        .launch {
+            position: absolute;
+            width: 3px;
+            height: 15px;
+            background: #fff;
+            animation: rise 0.8s ease-out;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .tip {
+            position: fixed;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+
+            font-size: 24px;
+            text-align: center;
+
+            animation: fadeOut 1.5s ease-in-out 3s forwards;
+            z-index: 20;
+            color: #fff;
+            user-select: none;
+        }
+
+        @keyframes rise {
+            to {
+                transform: translateY(-100vh) rotate(180deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tip">点击屏幕燃放烟花</div>
+    <script>
+        document.addEventListener('click', (e) => createFirework(e.clientX, e.clientY));
+
+        function createLaunchTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'launch';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            trail.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(trail);
+
+            setTimeout(() => {
+                trail.remove();
+            }, 800);
+        }
+
+        function createFirework(x, y) {
+            const particles = Math.random() * 30 + 125;
+            const hue = Math.random() * 360;
+
+            for (let i = 0; i < particles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+
+                const angle = (Math.PI * 2) * Math.random();
+                const velocity = Math.random() * 300 + 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+
+                particle.style.cssText = `
+                    --tx: ${tx}px;
+                    --ty: ${ty}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: hsl(${hue + Math.random() * 60 - 30}, 100%, 50%);
+                    width: ${Math.random() * 5 + 4}px;
+                    height: ${Math.random() * 5 + 4}px;
+                    animation-duration: ${Math.random() * 0.5 + 1}s;
+                `;
+
+                document.body.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>
