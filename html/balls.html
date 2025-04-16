@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>物理小球</title>
+    <script defer src="/index.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            background: #1a1a1a;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const CONFIG = {
+            BALL_COUNT_MIN: 80,
+            BALL_COUNT_MAX: 120,
+            RADIUS_MIN: 8,
+            RADIUS_MAX: 25,
+            INITIAL_SPEED_MIN: -10,
+            INITIAL_SPEED_MAX: 10,
+            MAX_SPEED: 32
+        };
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        let balls = [];
+
+        function createBalls() {
+            const ballCount = Math.floor(random(CONFIG.BALL_COUNT_MIN, CONFIG.BALL_COUNT_MAX));
+
+            for (let i = 0; i < ballCount; i++) {
+                let radius = random(CONFIG.RADIUS_MIN, CONFIG.RADIUS_MAX);
+                let validPosition = false;
+                let x, y;
+
+                while (!validPosition) {
+                    x = random(radius, canvas.width - radius);
+                    y = random(radius, canvas.height - radius);
+                    validPosition = true;
+
+                    for (let ball of balls) {
+                        const dx = x - ball.x;
+                        const dy = y - ball.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < radius + ball.radius) {
+                            validPosition = false;
+                            break;
+                        }
+                    }
+                }
+
+                let vx = random(CONFIG.INITIAL_SPEED_MIN, CONFIG.INITIAL_SPEED_MAX);
+                let vy = random(CONFIG.INITIAL_SPEED_MIN, CONFIG.INITIAL_SPEED_MAX);
+                [vx, vy] = limitSpeedVector(vx, vy);
+
+                balls.push({
+                    x: x,
+                    y: y,
+                    radius: radius,
+                    vx: vx,
+                    vy: vy,
+                    color: `hsl(${random(0, 360)}, 70%, 50%)`
+                });
+            }
+        }
+
+        function limitSpeedVector(vx, vy) {
+            const speed = Math.sqrt(vx ** 2 + vy ** 2);
+            if (speed > CONFIG.MAX_SPEED) {
+                const ratio = CONFIG.MAX_SPEED / speed;
+                return [vx * ratio, vy * ratio];
+            }
+            return [vx, vy];
+        }
+
+        function handleBoundary(ball) {
+            if (ball.x < ball.radius) {
+                ball.x = ball.radius;
+                ball.vx = Math.abs(ball.vx);
+            }
+            if (ball.x > canvas.width - ball.radius) {
+                ball.x = canvas.width - ball.radius;
+                ball.vx = -Math.abs(ball.vx);
+            }
+            if (ball.y < ball.radius) {
+                ball.y = ball.radius;
+                ball.vy = Math.abs(ball.vy);
+            }
+            if (ball.y > canvas.height - ball.radius) {
+                ball.y = canvas.height - ball.radius;
+                ball.vy = -Math.abs(ball.vy);
+            }
+        }
+
+        function handleCollisions() {
+            for (let i = 0; i < balls.length; i++) {
+                for (let j = i + 1; j < balls.length; j++) {
+                    const ball1 = balls[i];
+                    const ball2 = balls[j];
+
+                    const dx = ball2.x - ball1.x;
+                    const dy = ball2.y - ball1.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minDistance = ball1.radius + ball2.radius;
+
+                    if (distance < minDistance) {
+                        const nx = dx / distance;
+                        const ny = dy / distance;
+
+                        const relativeVelocity = {
+                            x: ball1.vx - ball2.vx,
+                            y: ball1.vy - ball2.vy
+                        };
+
+                        const speed = relativeVelocity.x * nx + relativeVelocity.y * ny;
+
+                        if (speed < 0) {
+                            const m1 = ball1.radius ** 2;
+                            const m2 = ball2.radius ** 2;
+
+                            const impulse = (2 * speed) / (m1 + m2);
+
+                            ball1.vx -= impulse * m2 * nx;
+                            ball1.vy -= impulse * m2 * ny;
+                            ball2.vx += impulse * m1 * nx;
+                            ball2.vy += impulse * m1 * ny;
+
+                            [ball1.vx, ball1.vy] = limitSpeedVector(ball1.vx, ball1.vy);
+                            [ball2.vx, ball2.vy] = limitSpeedVector(ball2.vx, ball2.vy);
+
+                            const overlap = minDistance - distance;
+                            ball1.x -= nx * overlap * 0.5;
+                            ball1.y -= ny * overlap * 0.5;
+                            ball2.x += nx * overlap * 0.5;
+                            ball2.y += ny * overlap * 0.5;
+                        }
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            balls.forEach(ball => {
+                ball.x += ball.vx;
+                ball.y += ball.vy;
+                handleBoundary(ball);
+
+                // 持续速度限制（新增）
+                [ball.vx, ball.vy] = limitSpeedVector(ball.vx, ball.vy);
+            });
+
+            handleCollisions();
+
+            balls.forEach(ball => {
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = ball.color;
+                ctx.fill();
+                ctx.closePath();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        createBalls();
+        animate();
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                setCanvasSize();
+                balls = [];
+                createBalls();
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>
