@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>2048</title>
+    <script defer src="https://saltwood.top:3033/script.js"
+        data-website-id="2dd46a5c-5631-48cf-89a3-db399e3c5032"></script>
+
+    <link href="/index.css" rel="stylesheet">
+    <script defer src="/index.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #faf8ef;
+            margin: 0;
+            user-select: none;
+        }
+
+        #game-container {
+            width: 400px;
+            margin: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px;
+            background-color: #bbada0;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            background-color: rgba(238, 228, 218, 0.35);
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            transition:
+                background-color 0.15s ease,
+                font-size 0.15s ease;
+        }
+
+        .cell.merged {
+            animation: pop 0.15s ease;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.9);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .cell[data-value="1"] {
+            background-color: #cdc1b4;
+            color: #776e65;
+        }
+
+        .cell[data-value="2"] {
+            background-color: #eee4da;
+            color: #776e65;
+        }
+
+        .cell[data-value="4"] {
+            background-color: #ede0c8;
+            color: #776e65;
+        }
+
+        .cell[data-value="8"] {
+            background-color: #f2b179;
+        }
+
+        .cell[data-value="16"] {
+            background-color: #f59563;
+        }
+
+        .cell[data-value="32"] {
+            background-color: #f67c5f;
+        }
+
+        .cell[data-value="64"] {
+            background-color: #f65e3b;
+        }
+
+        .cell[data-value="128"] {
+            background-color: #edcf72;
+            font-size: 36px;
+        }
+
+        .cell[data-value="256"] {
+            background-color: #edcc61;
+            font-size: 36px;
+        }
+
+        .cell[data-value="512"] {
+            background-color: #edc850;
+            font-size: 36px;
+        }
+
+        .cell[data-value="1024"] {
+            background-color: #edc53f;
+            font-size: 30px;
+        }
+
+        .cell[data-value="2048"] {
+            background-color: #edc22e;
+            font-size: 30px;
+        }
+
+        .cell[data-value="4096"] {
+            background-color: #5e00aa;
+            font-size: 30px;
+        }
+
+        .cell[data-value="8192"] {
+            background-color: #7d3cff;
+            font-size: 30px;
+        }
+
+        .cell[data-value="16384"] {
+            background-color: #0066cc;
+            font-size: 28px;
+        }
+
+        .cell[data-value="32768"] {
+            background-color: #003399;
+            font-size: 28px;
+        }
+
+        .cell[data-value="65536"] {
+            background-color: #000066;
+            font-size: 28px;
+        }
+
+        #game-over {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-container">
+        <div class="stats">
+            <div id="score">得分：0</div>
+            <div id="moves">移动次数：0</div>
+        </div>
+        <div id="board">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+    </div>
+    <div id="game-over">
+        游戏结束！<br>
+        <button onclick="location.reload()">再玩一次</button>
+    </div>
+
+    <script>
+        let board = Array(4).fill().map(() => Array(4).fill(0));
+        let score = 0;
+        let moveCount = 0;
+        let isAnimating = false;
+
+        function initGame() {
+            addNewTile();
+            addNewTile();
+            updateView();
+        }
+
+        function move(key) {
+            let result = {};
+            switch (key) {
+                case 'ArrowUp':
+                    result = moveUp(board);
+                    break;
+                case 'ArrowDown':
+                    result = moveDown(board);
+                    break;
+                case 'ArrowLeft':
+                    result = moveLeft(board);
+                    break;
+                case 'ArrowRight':
+                    result = moveRight(board);
+                    break;
+                default:
+                    break;
+            }
+            const moved = result.moved;
+            const animations = result.animations;
+            board = result.board;
+            score += result.score;
+            if (moved) {
+                moveCount++;
+                addNewTile();
+                updateView();
+            }
+            result.animations.flat().forEach((i, index) => i ? animateMerge(index) : null);
+            if (isGameOver()) document.getElementById('game-over').style.display = 'block';
+        }
+
+        function moveLeft(board) {
+            const newBoard = [];
+            let moved = false;
+            let score = 0;
+            let animations = [];
+            for (const i of [0, 1, 2, 3]) {
+                const row = board[i];
+                const nonZero = row.filter(i => i !== 0);
+                let j = 0;
+                let merged = [];
+                animations.push([]);
+                while (j < nonZero.length) {
+                    if (j + 1 < nonZero.length && nonZero[j] === nonZero[j + 1]) {
+                        if (!moved) moved = true;
+                        merged.push(nonZero[j] * 2);
+                        score += nonZero[j] * 2;
+                        animations[i].push(true);
+                        animations[i].push(false);
+                        j++;
+                    }
+                    else {
+                        merged.push(nonZero[j]);
+                        animations[i].push(false);
+                    }
+                    j++;
+                }
+                while (merged.length < 4) merged.push(0);
+                while (animations[i].length < 4) animations[i].push(false);
+                newBoard.push(merged);
+
+                if (board[i].join() !== merged.join()) moved = true;
+            }
+            return { board: newBoard, moved, score, animations };
+        }
+
+        function moveRight(board) {
+            const result = moveLeft(board.map(arr => arr.reverse()));
+            result.board = result.board.map(arr => arr.reverse());
+            result.animations = result.animations.map(arr => arr.reverse());
+            return result;
+        }
+
+        function moveUp(board) {
+            const newBoard = [];
+            let moved = false;
+            let score = 0;
+            const reversedBoard = [0, 1, 2, 3].map(i => board.map(j => j[i]));
+            let animations = [];
+            for (const i of [0, 1, 2, 3]) {
+                const col = reversedBoard[i];
+                const nonZero = col.filter(i => i !== 0);
+                let j = 0;
+                let merged = [];
+                animations.push([]);
+                while (j < nonZero.length) {
+                    if (j + 1 < nonZero.length && nonZero[j] === nonZero[j + 1]) {
+                        if (!moved) moved = true;
+                        merged.push(nonZero[j] * 2);
+                        score += nonZero[j] * 2;
+                        j++;
+                        animations[i].push(true);
+                        animations[i].push(false);
+                    }
+                    else {
+                        merged.push(nonZero[j]);
+                        animations[i].push(false);
+                    }
+                    j++;
+                }
+                while (merged.length < 4) merged.push(0);
+                while (animations[i].length < 4) animations[i].push(false);
+                newBoard.push(merged);
+
+                if (reversedBoard[i].join() !== merged.join()) moved = true;
+            }
+            const result = [];
+            [0, 1, 2, 3].forEach(i => result.push(newBoard.map(j => j[i])));
+            animations = [0, 1, 2, 3].map(i => animations.map(j => j[i]));
+            return { board: result, moved, score, animations };
+        }
+
+        function moveDown(board) {
+            const result = moveUp(board.reverse());
+            result.board = result.board.reverse();
+            result.animations = result.animations.reverse();
+            return result;
+        }
+
+        function addTile(size) {
+            let emptyCells = [];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (board[i][j] === 0) {
+                        emptyCells.push({ x: i, y: j });
+                    }
+                }
+            }
+            if (emptyCells.length > 0) {
+                let { x, y } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                board[x][y] = size;
+                animateNewTile(x, y);
+            }
+        }
+
+        function addNewTile() {
+            addTile(Math.random() < 0.9 ? 2 : 4);
+        }
+
+        function animateNewTile(x, y) {
+            const cell = document.querySelectorAll('.cell')[x * 4 + y];
+            cell.style.transform = 'scale(0)';
+            setTimeout(() => {
+                cell.style.transform = 'scale(1)';
+            }, 50);
+        }
+
+        function updateView() {
+            const cells = document.querySelectorAll('.cell');
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    const idx = i * 4 + j;
+                    const value = board[i][j];
+                    cells[idx].textContent = value || '';
+                    cells[idx].setAttribute('data-value', value);
+                }
+            }
+            document.getElementById('score').textContent = `得分：${score}`;
+            document.getElementById('moves').textContent = `移动次数：${moveCount}`;
+        }
+
+        function animateMerge(idx) {
+            isAnimating = true;
+            const cell = document.querySelectorAll('.cell')[idx];
+            cell.classList.add('merged');
+
+            setTimeout(() => {
+                cell.classList.remove('merged');
+                isAnimating = false;
+            }, 150);
+        }
+
+        function isGameOver() {
+            if (board.some(i => i.some(j => j >= 65536))) return true;
+            // 检查空格
+            for (let i = 0; i < 4; i++) {
+                if (board[i].includes(0)) return false;
+            }
+            // 检查相邻相同
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if ((j < 3 && board[i][j] === board[i][j + 1]) ||
+                        (i < 3 && board[i][j] === board[i + 1][j])) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+                if (!isGameOver()) move(e.key);
+                else document.getElementById('game-over').style.display = 'block';
+            }
+        });
+
+        initGame();
+    </script>
+</body>
+
+</html>
