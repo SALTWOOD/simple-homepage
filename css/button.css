@@ -1,0 +1,17 @@
+button {
+    margin: 4px;
+    color: #111;
+    background-color: white;
+    border: solid #555555aa 1.5px;
+    border-radius: 6px;
+    padding: 9px 1.5rem;
+    font-size: 16px;
+    min-height: 42.8px;
+    transition: box-shadow .4s ease, background-color .4s ease;
+}
+
+button:hover {
+    color: var(--main-theme-color-1);
+    border-color: var(--m-color);
+    background-color: var(--m-color-20t);
+}

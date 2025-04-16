@@ -1,0 +1,43 @@
+@import url('/css/colors.css');
+@import url('/css/button.css');
+@import url('/css/theme.css');
+@import url('/css/mobile.css');
+
+body {
+    font-family: 'Source Sans 3', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    line-height: 1.6;
+    font-size: 1.1em;
+    margin: 0;
+    padding: 12px;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('/backgrounds/background.png') center/cover fixed no-repeat;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.badges img {
+    display: inline-block;
+    height: 28px;
+}

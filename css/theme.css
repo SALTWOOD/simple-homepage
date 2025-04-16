@@ -1,0 +1,52 @@
+.card {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: var(--title-color);
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--m-color-40t);
+    padding-bottom: 0.5rem;
+}
+
+.container {
+    padding: 0 10px 0;
+}
+
+.horizontal-align {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+p {
+    margin: 1rem 0;
+    color: #444;
+}
+
+ul {
+    padding-left: 28px;
+    margin: 1rem 0;
+}
+
+li {
+    margin: 0.2rem 0;
+    color: #555;
+}
+
+a {
+    color: var(--m-color);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+a:hover {
+    opacity: 0.8;
+}
