@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>扫雷</title>
+    <meta charset="UTF-8">
+    <link href="/index.css" rel="stylesheet">
+    <script defer src="/index.js"></script>
+
+    <style>
+        body {
+            background: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: #ecf0f1;
+        }
+
+        #status {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            background: #34495e;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid {
+            border-collapse: collapse;
+            background: #34495e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .cell {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #2c3e50;
+            text-align: center;
+            vertical-align: middle;
+            font-family: Arial;
+            cursor: pointer;
+            background: #95a5a6;
+            font-weight: bold;
+            transition: all 0.2s;
+            color: #2c3e50;
+        }
+
+        .cell:hover {
+            background: #7f8c8d;
+        }
+
+        .revealed {
+            background: #bdc3c7;
+        }
+
+        .mine {
+            background: #e74c3c url('data:image/svg+xml,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>') no-repeat center;
+            background-size: 60%;
+        }
+
+        .flagged {
+            background: #3498db url('data:image/svg+xml,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>') no-repeat center;
+            background-size: 60%;
+        }
+
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .number-1 {
+            color: #2980b9;
+        }
+
+        .number-2 {
+            color: #27ae60;
+        }
+
+        .number-3 {
+            color: #e74c3c;
+        }
+
+        .number-4 {
+            color: #8e44ad;
+        }
+
+        .number-5 {
+            color: #f1c40f;
+        }
+
+        .number-6 {
+            color: #16a085;
+        }
+
+        .number-7 {
+            color: #2c3e50;
+        }
+
+        .number-8 {
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="status">
+        <span>剩余雷数：<span id="mines-count">10</span></span>
+        <span>时间：<span id="timer">0</span></span>
+    </div>
+    <div id="game"></div>
+    <button onclick="init()">重新开始</button>
+
+    <script>
+        let SIZE = 10;
+        let MINES = 15;
+        let board = [];
+        let gameOver = false;
+        let isFirstClick = true;
+        let startTime = 0;
+        let timerInterval = null;
+        let flags = MINES;
+
+        function updateTimer() {
+            const time = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('timer').textContent = time;
+        }
+
+        function init() {
+            gameOver = false;
+            isFirstClick = true;
+            flags = MINES;
+            document.getElementById('mines-count').textContent = flags;
+            clearInterval(timerInterval);
+            document.getElementById('timer').textContent = 0;
+
+            board = Array(SIZE).fill().map(() =>
+                Array(SIZE).fill().map(() => ({
+                    isMine: false,
+                    revealed: false,
+                    flagged: false,
+                    neighborMines: 0
+                }))
+            );
+            render();
+        }
+
+        function generateMines(firstX, firstY) {
+            let minesPlaced = 0;
+            const safeZone = [];
+            for (let dx = -1; dx <= 1; dx++) {
+                for (let dy = -1; dy <= 1; dy++) {
+                    const nx = firstX + dx;
+                    const ny = firstY + dy;
+                    if (nx >= 0 && nx < SIZE && ny >= 0 && ny < SIZE) {
+                        safeZone.push(`${nx},${ny}`);
+                    }
+                }
+            }
+
+            while (minesPlaced < MINES) {
+                const x = Math.floor(Math.random() * SIZE);
+                const y = Math.floor(Math.random() * SIZE);
+                if (safeZone.includes(`${x},${y}`)) continue;
+                if (!board[x][y].isMine) {
+                    board[x][y].isMine = true;
+                    minesPlaced++;
+                }
+            }
+
+            for (let x = 0; x < SIZE; x++) {
+                for (let y = 0; y < SIZE; y++) {
+                    if (!board[x][y].isMine) {
+                        board[x][y].neighborMines = countNeighborMines(x, y);
+                    }
+                }
+            }
+
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function countNeighborMines(x, y) {
+            let count = 0;
+            for (let dx = -1; dx <= 1; dx++) {
+                for (let dy = -1; dy <= 1; dy++) {
+                    const nx = x + dx;
+                    const ny = y + dy;
+                    if (nx >= 0 && nx < SIZE && ny >= 0 && ny < SIZE) {
+                        if (board[nx][ny].isMine) count++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        function reveal(x, y) {
+            if (gameOver || board[x][y].revealed || board[x][y].flagged) return;
+
+            if (isFirstClick) {
+                generateMines(x, y);
+                isFirstClick = false;
+            }
+
+            board[x][y].revealed = true;
+
+            if (board[x][y].isMine) {
+                gameOver = true;
+                clearInterval(timerInterval);
+                alert('游戏结束！');
+                showMines();
+                return;
+            }
+
+            if (board[x][y].neighborMines === 0) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    for (let dy = -1; dy <= 1; dy++) {
+                        const nx = x + dx;
+                        const ny = y + dy;
+                        if (nx >= 0 && nx < SIZE && ny >= 0 && ny < SIZE) {
+                            if (!board[nx][ny].revealed) reveal(nx, ny);
+                        }
+                    }
+                }
+            }
+
+            render();
+            checkWin();
+        }
+
+        function checkWin() {
+            if (board.every(i => i.every(j => j.isMine || j.revealed || j.flagged))) {
+                gameOver = true;
+                clearInterval(timerInterval);
+                alert('胜利！');
+                showMines();
+            }
+        }
+
+        function toggleFlag(x, y) {
+            if (!board[x][y].revealed && flags > 0) {
+                if (!board[x][y].flagged) flags--;
+                else flags++;
+                board[x][y].flagged = !board[x][y].flagged;
+                document.getElementById('mines-count').textContent = flags;
+                render();
+            }
+        }
+
+        function render() {
+            const gameDiv = document.getElementById('game');
+            const table = document.createElement('table');
+            table.className = 'grid';
+
+            for (let x = 0; x < SIZE; x++) {
+                const tr = document.createElement('tr');
+                for (let y = 0; y < SIZE; y++) {
+                    const td = document.createElement('td');
+                    td.className = 'cell';
+                    if (board[x][y].revealed) {
+                        td.classList.add('revealed');
+                        if (board[x][y].isMine) {
+                            td.classList.add('mine');
+                        } else if (board[x][y].neighborMines > 0) {
+                            td.textContent = board[x][y].neighborMines;
+                            td.classList.add(`number-${board[x][y].neighborMines}`);
+                        }
+                    } else if (board[x][y].flagged) {
+                        td.classList.add('flagged');
+                    }
+
+                    td.onclick = (e) => {
+                        if (e.button === 0) reveal(x, y);
+                    };
+                    td.oncontextmenu = (e) => {
+                        e.preventDefault();
+                        toggleFlag(x, y);
+                    };
+
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+
+            gameDiv.innerHTML = '';
+            gameDiv.appendChild(table);
+        }
+
+        function showMines() {
+            const cells = [];
+            for (const i of document.getElementById('game').children[0].children) {
+                for (const j of i.children) {
+                    cells.push(j);
+                }
+            }
+            const data = board.flat();
+            data.forEach((i, index) => {
+                if (i.isMine) {
+                    cells[index].classList.add('mine');
+                }
+            });
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
