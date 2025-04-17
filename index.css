@@ -42,3 +42,7 @@ body::before {
     display: inline-block;
     height: 28px;
 }
+
+.gap {
+    padding-bottom: 1%;
+}
