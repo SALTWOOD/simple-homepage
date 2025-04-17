@@ -48,7 +48,7 @@ class PersonCard extends HTMLElement {
            target="_blank" 
            style="float:right; margin-right: 10px; margin-left: auto;" 
            rel="nofollow noopener">
-          <i class="fa fa-angle-right" style="font-weight: bold; font-size: 20px"></i>
+          <i class="fa fa-angle-right" style="font-weight: bold; font-size: 34px"></i>
         </a>
       ` : '';
 
