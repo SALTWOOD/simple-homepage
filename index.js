@@ -1,6 +1,6 @@
 class PersonCard extends HTMLElement {
     static get observedAttributes() {
-        return ['avatar', 'name', 'description1', 'description2', 'href'];
+        return ['avatar', 'name', 'description1', 'description2', 'link'];
     }
 
     constructor() {
@@ -10,7 +10,7 @@ class PersonCard extends HTMLElement {
             name: '',
             description1: '',
             description2: '',
-            href: ''
+            link: ''
         };
         this.render();
     }
@@ -43,8 +43,8 @@ class PersonCard extends HTMLElement {
             `<span style="font-size: 14px; color: #666;">${attrs.description2}</span><br>`
         );
 
-        const link = attrs.href ? `
-        <a href="${attrs.href}" 
+        const link = attrs.link ? `
+        <a href="${attrs.link}" 
            target="_blank" 
            style="float:right; margin-right: 10px; margin-left: auto;" 
            rel="nofollow noopener">
