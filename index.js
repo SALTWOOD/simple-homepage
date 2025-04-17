@@ -47,7 +47,7 @@ class PersonCard extends HTMLElement {
         <a href="${attrs.link}" 
            target="_blank" 
            style="float:right; margin-right: 10px; margin-left: auto;" 
-           rel="nofollow noopener">
+           rel="nofollow noopener" aria-label="点击访问该站点">
           <i class="fa fa-angle-right" style="font-weight: bold; font-size: 34px"></i>
         </a>
       ` : '';
