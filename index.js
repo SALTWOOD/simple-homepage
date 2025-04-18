@@ -78,7 +78,7 @@ const tip = String.raw`
                                   /_/              /____/          
             Version ${version} | Created by SALTWOOD               
             Repository: https://github.com/SALTWOOD/simple-homepage
-            This project follows the MIT license.                  `;
+            This project is licensed under the MIT License.        `;
 
 console.log(tip);
 document.getElementById("homepage-project-version").textContent = version;
