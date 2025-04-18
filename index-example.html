@@ -22,17 +22,7 @@
         <div class="card">
             <h2>About</h2>
             <div class="container">
-                <div
-                    style="background-color: #f8f8f8; border: 1px solid #e5e5e5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 12px; padding: 16px;">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <img src="https://github.com/SALTWOOD.png" alt="头像"
-                            style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                        <p style="margin: 0; font-size: 15px; color: #444; line-height: 1.5; font-weight: 400;">
-                            <span style="font-size: 20px;">SALTWOOD</span><br>
-                            <span style="font-size: 14px; color: #666;">一个废物</span><br>
-                        </p>
-                    </div>
-                </div>
+                <person-card avatar="https://github.com/SALTWOOD.png" name="SALTWOOD" description1="一个废物"></person-card>
             </div>
         </div>
         <div class="card">
@@ -80,6 +70,11 @@
             <h2>Footer</h2>
             <div class="container"
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <div>
+                    <i class="fa-brands fa-github"></i> 本项目已在 <a href="https://github.com/SALTWOOD/simple-homepage"
+                        target="_blank">GitHub</a> 开源<br>
+                </div>
+                <div>Version <span id="homepage-project-version"></span></div>
             </div>
         </div>
         <div class="card" style="display: none;">
