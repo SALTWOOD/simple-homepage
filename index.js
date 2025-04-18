@@ -67,3 +67,18 @@ class PersonCard extends HTMLElement {
 }
 
 customElements.define('person-card', PersonCard);
+
+const version = "1.0.1";
+const tip = String.raw`
+    __  __                                                         
+   / / / / ____    ____ ___    ___    ____    ____ _  ____ _  ___  
+  / /_/ / / __ \  / __ '__ \  / _ \  / __ \  / __ '/ / __ '/ / _ \ 
+ / __  / / /_/ / / / / / / / /  __/ / /_/ / / /_/ / / /_/ / /  __/ 
+/_/ /_/  \____/ /_/ /_/ /_/  \___/ / .___/  \__,_/  \__, /  \___/  
+                                  /_/              /____/          
+            Version ${version} | Created by SALTWOOD               
+            Repository: https://github.com/SALTWOOD/simple-homepage
+            This project follows the MIT license.                  `;
+
+console.log(tip);
+document.getElementById("homepage-project-version").textContent = version;
