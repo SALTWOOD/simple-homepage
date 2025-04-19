@@ -1,0 +1,39 @@
+name: "综合 Bug 反馈"
+description: "发现敌方 Bug"
+labels: [bug]
+body:
+- type: checkboxes
+  id: "checks"
+  attributes:
+    label: 在提交前请检查以下内容
+    options:
+      - label: 此议题没有被其他人报告过。
+        required: true
+- type: textarea
+  id: "browser-version"
+  attributes:
+    label: 浏览器
+    description: "给出复现问题的浏览器的名称和版本。"
+  validations:
+    required: true
+- type: textarea
+  id: "description"
+  attributes:
+    label: 描述
+    description: "简单描述问题及复现步骤"
+    placeholder: "在此处使用 Markdown 格式及正式的文本描述你的问题。请勿使用过于口语化、带有歧义的文字描述。"
+  validations:
+    required: true
+- type: textarea
+  id: "screenshot"
+  attributes:
+    label: 截图
+    description: "若有，请提供相关截图。"
+    placeholder: "先点击这个文本框，然后再将文件直接拖拽到文本框中以上传。"
+- type: textarea
+  id: "console-error"
+  attributes:
+    label: 控制台报错
+    description: "若控制台有报错信息，请将报错信息粘贴在此处。"
+  validations:
+    required: false

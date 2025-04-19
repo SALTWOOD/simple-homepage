@@ -1,0 +1,27 @@
+name: "新功能建议"
+description: "我要请求一个新功能！"
+labels: [enhancement]
+body:
+- type: checkboxes
+  id: "checks"
+  attributes:
+    label: 在提交前请检查以下内容
+    options:
+      - label: 此议题没有被其他人报告过。
+        required: true
+- type: textarea
+  id: "description"
+  attributes:
+    label: 描述
+    description: "简单描述你希望添加的新功能。"
+    placeholder: "在此处使用 Markdown 格式及正式的文本描述你的新功能。请勿使用过于口语化、带有歧义的文字描述。"
+  validations:
+    required: true
+- type: textarea
+  id: "reason"
+  attributes:
+    label: 理由
+    description: "请说明为什么需要这个新功能，以及它能带来哪些好处。"
+    placeholder: "在此处使用 Markdown 格式及正式的文本描述你的理由。请勿使用过于口语化、带有歧义的文字描述。"
+  validations:
+    required: true
