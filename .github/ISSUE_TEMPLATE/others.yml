@@ -1,0 +1,19 @@
+name: "其他类别"
+description: "这些类别都不能准确概括我的内容！"
+body:
+- type: checkboxes
+  id: "checks"
+  attributes:
+    label: 在提交前请检查以下内容
+    options:
+      - label: 此议题没有被其他人报告过。
+        required: true
+      - label: 我不使用预提供的模板，因为我能确保此议题的内容、排版足够优质。
+        required: true
+- type: textarea
+  id: "body"
+  attributes:
+    label: 主体
+    description: "在此处使用 Markdown 格式及正式的文本描述你的主题。请勿使用过于口语化、带有歧义的文字描述。"
+  validations:
+    required: true
