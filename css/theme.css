@@ -36,6 +36,7 @@ h2 {
 
 .container {
     padding: 0 10px 0;
+    overflow-wrap: break-word;
 }
 
 .horizontal-align {
@@ -81,6 +82,10 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+    .person-card div > img {
+        display: none;
+    }
+    
     .card {
         border-radius: 0;
         box-shadow: none;
