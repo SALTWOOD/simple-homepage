@@ -14,7 +14,11 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url('/backgrounds/background.png') center/cover fixed no-repeat;
+    background-image: url('/backgrounds/background.png');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     filter: blur(3px);
     z-index: -1;
 }
@@ -30,6 +34,6 @@ body::before {
 
 @media (max-aspect-ratio: 1/1) {
     body::before {
-        background: url('/backgrounds/background-mobile.png');
+        background-image: url('/backgrounds/background-mobile.png');
     }
 }
