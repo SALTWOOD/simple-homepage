@@ -82,11 +82,6 @@ a:hover {
     color: white;
 }
 
-.masked::selection {
-    color: white;
-    background-color: black;
-}
-
 @media (max-width: 768px) {
     .card {
         padding: 1.2rem;
