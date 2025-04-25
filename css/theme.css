@@ -71,6 +71,22 @@ a:hover {
     opacity: 0.8;
 }
 
+.masked {
+    background-color: black;
+    color: transparent;
+    user-select: text;
+    transition: 0.3s;
+}
+
+.masked:hover {
+    color: white;
+}
+
+.masked::selection {
+    color: white;
+    background-color: black;
+}
+
 @media (max-width: 768px) {
     .card {
         padding: 1.2rem;
@@ -82,10 +98,10 @@ a:hover {
 }
 
 @media (max-width: 480px) {
-    .person-card div > img {
+    .person-card div>img {
         display: none;
     }
-    
+
     .card {
         border-radius: 0;
         box-shadow: none;
