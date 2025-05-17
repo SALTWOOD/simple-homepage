@@ -82,3 +82,53 @@ class PersonCard extends HTMLElement {
 }
 
 customElements.define('person-card', PersonCard);
+
+// 功能性方法
+function openInNewTab(url) {
+    window.open(url, '_blank').focus();
+}
+
+function toggleTheme(mode = null) {
+    const isDarkMode = mode === null ? document.documentElement.classList.contains("darkmode") : mode;
+    if (isDarkMode) {
+        document.documentElement.classList.remove("darkmode");
+        localStorage.setItem("ui.darkmode", "false");
+    }
+    else {
+        document.documentElement.classList.add("darkmode");
+        localStorage.setItem("ui.darkmode", "true");
+    }
+}
+
+// 主题记忆
+(() => {
+    const darkmode = localStorage.getItem("ui.darkmode") === "true";
+    toggleTheme(!darkmode);
+    navMain.classList.remove('active');
+})();
+
+// 导航栏在窄视口设备下的自动折叠
+(() => {
+    const menuBtn = document.querySelector('.nav-menu-btn');
+    const navMain = document.querySelector('.nav-main');
+
+    if (!menuBtn || !navMain) {
+        // 没有导航栏，跑路
+        return;
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMain.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (navMain.classList.contains('active')) {
+            navMain.classList.remove('active');
+        }
+    });
+
+    navMain.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+})();
