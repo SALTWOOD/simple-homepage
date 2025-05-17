@@ -107,7 +107,7 @@ a:hover {
     font-weight: 600;
     font-size: 1rem;
     user-select: none;
-    color: var(--title-color);
+    color: var(--nav-color);
 }
 
 .nav-menu-btn {
@@ -138,6 +138,10 @@ html.darkmode {
     .person-card {
         background: var(--background-color-dark);
         border-color: #bbbbbbaa;
+    }
+
+    & .nav-links>li>a {
+        color: var(--nav-color-dark);
     }
 
     & body,
