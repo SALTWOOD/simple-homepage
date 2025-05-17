@@ -5,6 +5,9 @@
     --m-color-20t: #fba41420;
     --m-color-40t: #fba41440;
     --background-color: #5f5f5f;
-    --card-background: rgba(255, 255, 255, 0.9);
+    --background-color-dark: #353535;
+    --card-background: rgba(255, 255, 255, 90%);
+    --card-background-dark: rgba(53, 53, 53, 90%);
     --title-color: #333;
+    --title-color-dark: #ddd;
 }

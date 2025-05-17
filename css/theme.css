@@ -12,7 +12,6 @@ body {
     line-height: 1.6;
     font-size: 1.1em;
     margin: 0;
-    padding: 12px;
 }
 
 .main {
@@ -110,5 +109,30 @@ a:hover {
 
     body {
         padding: 0px;
+    }
+}
+
+html.darkmode {
+    & body::before {
+        filter: blur(3px) brightness(50%);
+    }
+
+    & .card,
+    .person-card {
+        background-color: var(--card-background-dark);
+    }
+
+    & button,
+    .person-card {
+        background: var(--background-color-dark);
+        border-color: #bbbbbbaa;
+    }
+
+    & body,
+    h2,
+    li,
+    button,
+    .person-card div>p {
+        color: #bbb;
     }
 }
