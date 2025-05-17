@@ -100,15 +100,8 @@ function toggleTheme(mode = null) {
     }
 }
 
-// 主题记忆
 (() => {
-    const darkmode = localStorage.getItem("ui.darkmode") === "true";
-    toggleTheme(!darkmode);
-    navMain.classList.remove('active');
-})();
-
-// 导航栏在窄视口设备下的自动折叠
-(() => {
+    // 导航栏在窄视口设备下的自动折叠
     const menuBtn = document.querySelector('.nav-menu-btn');
     const navMain = document.querySelector('.nav-main');
 
@@ -131,4 +124,9 @@ function toggleTheme(mode = null) {
     navMain.addEventListener('click', (e) => {
         e.stopPropagation();
     });
+
+    // 主题记忆
+    const darkmode = localStorage.getItem("ui.darkmode") === "true";
+    toggleTheme(!darkmode);
+    navMain.classList.remove('active');
 })();
