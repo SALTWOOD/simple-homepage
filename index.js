@@ -101,6 +101,13 @@ function toggleTheme(mode = null) {
 }
 
 (() => {
+    // 在菜单激活时运行
+    function setMenuAnimationDelay() {
+        document.querySelectorAll('.nav-main.active .nav-links li:not(:first-child)').forEach((li, index) => {
+            li.style.animationDelay = `${0.1 * (index + 1)}s`;
+        });
+    }
+
     // 导航栏在窄视口设备下的自动折叠
     const menuBtn = document.querySelector('.nav-menu-btn');
     const navMain = document.querySelector('.nav-main');
@@ -112,6 +119,7 @@ function toggleTheme(mode = null) {
 
     menuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        setMenuAnimationDelay();
         navMain.classList.toggle('active');
     });
 
