@@ -148,10 +148,6 @@ html.darkmode {
         color: #bbb;
     }
 
-    & .nav-links>li>a {
-        color: var(--title-color-dark);
-    }
-
     & .nav-main {
         background: none;
     }
