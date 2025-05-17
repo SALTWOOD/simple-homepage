@@ -112,6 +112,37 @@ a:hover {
     }
 }
 
+.nav-main {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: linear-gradient(to bottom,
+            rgba(51, 51, 51, 0.3) 0%,
+            rgba(51, 51, 51, 0) 100%);
+}
+
+.nav-container {
+    width: 100%;
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 50px;
+    list-style: none;
+}
+
+.nav-links>li>a {
+    font-weight: 600;
+    font-size: 1rem;
+    user-select: none;
+    color: var(--title-color);
+}
+
 html.darkmode {
     & body::before {
         filter: blur(3px) brightness(50%);
@@ -134,5 +165,13 @@ html.darkmode {
     button,
     .person-card div>p {
         color: #bbb;
+    }
+
+    & .nav-links>li>a {
+        color: var(--title-color-dark);
+    }
+
+    & .nav-main {
+        background: none;
     }
 }

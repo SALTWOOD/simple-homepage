@@ -14,10 +14,37 @@
         function openInNewTab(url) {
             window.open(url, '_blank').focus();
         }
+
+        function toggleTheme(mode = null) {
+            const isDarkMode = mode === null ? document.documentElement.classList.contains("darkmode") : mode;
+            if (isDarkMode) {
+                document.documentElement.classList.remove("darkmode");
+                localStorage.setItem("ui.darkmode", "false");
+            }
+            else {
+                document.documentElement.classList.add("darkmode");
+                localStorage.setItem("ui.darkmode", "true");
+            }
+        }
+
+        (() => {
+            const darkmode = localStorage.getItem("ui.darkmode") === "true";
+            toggleTheme(!darkmode);
+        })();
     </script>
 </head>
 
 <body>
+    <header>
+        <nav class="nav-main">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="/">首页</a></li>
+                    <li><a onclick="toggleTheme()"><i class="fa fa-moon"></i> 深色模式</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
     <div class="center">
         <div class="card">
             <h2>About</h2>
@@ -71,8 +98,7 @@
             <div class="container"
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                 <div>
-                    本项目已在 <a href="https://github.com/SALTWOOD/simple-homepage"
-                        target="_blank">GitHub</a> 开源<br>
+                    本项目已在 <a href="https://github.com/SALTWOOD/simple-homepage" target="_blank">GitHub</a> 开源<br>
                 </div>
                 <div>Version <span id="homepage-project-version"></span></div>
             </div>
