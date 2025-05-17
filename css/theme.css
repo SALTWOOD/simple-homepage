@@ -160,6 +160,11 @@ html.darkmode {
         background: rgba(187, 187, 187, 0.9);
         color: #333;
     }
+
+    & button:hover {
+        border-color: var(--m-color);
+        background-color: var(--m-color-20t);
+    }
 }
 
 @media (max-width: 768px) {
