@@ -2,6 +2,7 @@
 @import url('/css/button.css');
 @import url('/css/theme.css');
 @import url('/css/person-card.css');
+@import url('/css/custom.css');
 
 body {
     font-family: 'Source Sans 3', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -19,7 +20,6 @@ body::before {
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    filter: blur(3px);
     z-index: -1;
 }
 

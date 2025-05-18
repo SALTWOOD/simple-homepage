@@ -126,7 +126,7 @@ a:hover {
 
 html.darkmode {
     & body::before {
-        filter: blur(3px) brightness(50%);
+        filter: brightness(50%);
     }
 
     & .card,
