@@ -22,7 +22,6 @@ async function loadLanguage(lang) {
     if (lang) {
         try {
             const response = await import(`/lang/${lang}.js`);
-            if (!response.ok) throw new Error('Network response was not ok');
             resources = await response.json();
             document.getElementById("something-hidden").style.display = "none";
         } catch (error) {
