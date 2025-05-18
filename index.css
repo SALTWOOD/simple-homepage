@@ -14,7 +14,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('/backgrounds/background.png');
+    background-image: url('/backgrounds/background.webp');
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -34,6 +34,6 @@ body::before {
 
 @media (max-aspect-ratio: 1/1) {
     body::before {
-        background-image: url('/backgrounds/background-mobile.png');
+        background-image: url('/backgrounds/background-mobile.webp');
     }
 }
