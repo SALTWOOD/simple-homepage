@@ -9,6 +9,7 @@
 
     <link href="/index.css" rel="stylesheet">
     <script defer src="/index.js"></script>
+    <script defer src="/i18n.js"></script>
 
     <script>
         function openInNewTab(url) {
@@ -36,12 +37,13 @@
 
 <body>
     <header>
-        <button class="nav-menu-btn">☰ 菜单</button>
+        <button class="nav-menu-btn">☰ <span data-i18n="nav.menu">菜单</span></button>
         <nav class="nav-main">
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="/">首页</a></li>
-                    <li><a onclick="toggleTheme()">深色模式</a></li>
+                    <li><a href="/" data-i18n="nav.home">首页</a></li>
+                    <li><a onclick="toggleTheme()" data-i18n="nav.dark_mode">深色模式</a></li>
+                    <li><a onclick="toggleLanguage()" data-i18n="nav.language">切换语言</a></li>
                 </ul>
             </div>
         </nav>
@@ -53,7 +55,7 @@
                 <person-card avatar="https://github.com/SALTWOOD.png" name="SALTWOOD" description1="一个废物"></person-card>
             </div>
         </section>
-        
+
         <section class="card">
             <h2>Websites</h2>
             <div class="container horizontal-align">
@@ -103,7 +105,7 @@
             <div class="container"
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                 <div>
-                    本项目已在 <a href="https://github.com/SALTWOOD/simple-homepage" target="_blank">GitHub</a> 开源<br>
+                    本项目已在 <a href="https://github.com/SALTWOOD/simple-homepage" target="_blank" data-i18n="footer.open_source">GitHub</a> 开源<br>
                 </div>
                 <div>Version <span id="homepage-project-version"></span></div>
             </div>
