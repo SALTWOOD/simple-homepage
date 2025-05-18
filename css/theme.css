@@ -253,8 +253,18 @@ html.darkmode {
         border-bottom: 2px solid #00000022;
     }
 
-    html.darkmode .nav-main {
-        border-bottom: 2px solid #ffffff22;
-        background-color: var(--card-background-dark);
+    .nav-links>li>a {
+        color: var(--title-color)
+    }
+
+    html.darkmode {
+        & .nav-main {
+            border-bottom: 2px solid #ffffff22;
+            background-color: var(--card-background-dark);
+        }
+
+        & .nav-links>li>a {
+            color: var(--title-color-dark)
+        }
     }
 }
