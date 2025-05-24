@@ -193,6 +193,10 @@ html.darkmode {
         display: none;
     }
 
+    .nav-links>li>a {
+        color: var(--title-color)
+    }
+
     .nav-menu-btn {
         display: block;
     }
@@ -259,10 +263,6 @@ html.darkmode {
 
     body {
         padding: 0px;
-    }
-
-    .nav-links>li>a {
-        color: var(--title-color)
     }
 
     html.darkmode {
