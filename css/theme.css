@@ -80,6 +80,13 @@ a:hover {
     color: white;
 }
 
+.nav-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 .nav-main {
     padding-top: 1rem;
     background: linear-gradient(to bottom,
