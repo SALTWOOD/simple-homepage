@@ -155,9 +155,4 @@ function toggleTheme(mode = null) {
     checkScroll();
 
     window.addEventListener('scroll', checkScroll);
-
-    window.addEventListener('resize', function () {
-        vh = window.innerHeight;
-        checkScroll();
-    });
 })();
