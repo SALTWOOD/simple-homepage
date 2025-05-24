@@ -3,15 +3,6 @@ body::before {
     filter: blur(10px);
 }
 
-body.blur-disabled::before {
-    filter: none;
-}
-
-body.blur-disabled .scroll-indicator {
-    visibility: hidden;
-    opacity: 0;
-}
-
 .scroll-container {
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -29,6 +20,7 @@ body.blur-disabled .scroll-indicator {
 .intro-text {
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    user-select: none;
 }
 
 .scroll-indicator {
@@ -36,7 +28,22 @@ body.blur-disabled .scroll-indicator {
     bottom: 30px;
     animation: float 3s ease-in-out infinite;
     font-size: 2rem;
-    opacity: 0.8;
+    opacity: 1;
+    user-select: none;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+body.blur-disabled {
+    & .scroll-indicator {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &::before {
+        filter: none;
+    }
 }
 
 @keyframes float {
