@@ -137,4 +137,27 @@ function toggleTheme(mode = null) {
     const darkmode = localStorage.getItem("ui.darkmode") === "true";
     toggleTheme(!darkmode);
     navMain.classList.remove('active');
+
+    // Banner 及模糊
+    const body = document.body;
+    const scrollInfo = document.getElementById('scrollInfo');
+    const threshold = 0.6;
+    const vh = document.querySelector(".intro-section").scrollHeight ?? 0;
+
+    function checkScroll() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const scrollPercent = scrollY / vh;
+
+        if (scrollPercent < threshold) body.classList.remove('blur-disabled');
+        else body.classList.add('blur-disabled');
+    }
+
+    checkScroll();
+
+    window.addEventListener('scroll', checkScroll);
+
+    window.addEventListener('resize', function () {
+        vh = window.innerHeight;
+        checkScroll();
+    });
 })();

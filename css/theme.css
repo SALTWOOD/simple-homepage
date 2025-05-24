@@ -85,13 +85,20 @@ a:hover {
     top: 0;
     left: 0;
     width: 100%;
-}
-
-.nav-main {
-    padding-top: 1rem;
+    transition: background-color 0.8s ease;
     background: linear-gradient(to bottom,
             rgba(51, 51, 51, 0.3) 0%,
             rgba(51, 51, 51, 0) 100%);
+
+    body.blur-disabled & {
+        background: var(--m-color-a0t);
+        backdrop-filter: blur(16px);
+    }
+}
+
+.nav-main {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
 }
 
 .nav-container {
