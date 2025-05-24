@@ -261,7 +261,7 @@ html.darkmode {
         padding: 0px;
     }
 
-    .nav-main {
+    .nav-header {
         background: var(--card-background);
         border-bottom: 2px solid #00000022;
     }
@@ -279,5 +279,9 @@ html.darkmode {
         & .nav-links>li>a {
             color: var(--title-color-dark)
         }
+    }
+
+    & body.blur-disabled .nav-main {
+        background: none;
     }
 }
