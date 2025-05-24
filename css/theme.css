@@ -261,11 +261,6 @@ html.darkmode {
         padding: 0px;
     }
 
-    .nav-header {
-        background: var(--card-background);
-        border-bottom: 2px solid #00000022;
-    }
-
     .nav-links>li>a {
         color: var(--title-color)
     }
