@@ -1,8 +1,3 @@
-body::before {
-    transition: filter 0.8s ease;
-    filter: blur(10px);
-}
-
 .scroll-container {
     overflow-y: scroll;
     scroll-behavior: smooth;
