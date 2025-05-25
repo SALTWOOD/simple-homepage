@@ -27,6 +27,7 @@ body::before {
     background-repeat: no-repeat;
     transition: filter 0.8s ease;
     filter: blur(10px);
+    z-index: -1;
 }
 
 .main {
