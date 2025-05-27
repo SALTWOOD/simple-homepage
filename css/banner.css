@@ -16,6 +16,8 @@
     font-size: 2.5rem;
     margin-bottom: 2rem;
     user-select: none;
+    color: white;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 }
 
 .scroll-indicator {
@@ -29,6 +31,8 @@
         opacity 0.3s ease,
         visibility 0.3s ease;
     z-index: -1; /* 展开菜单还会显示，所以降低 z-index */
+    color: white;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, .5);
 }
 
 body.blur-disabled {
@@ -39,6 +43,16 @@ body.blur-disabled {
 
     &::before {
         filter: none;
+    }
+}
+
+html.darkmode {
+    & .scroll-indicator {
+        color: var(--title-color-dark);
+    }
+
+    & .intro-text {
+        color: var(--title-color-dark);
     }
 }
 
