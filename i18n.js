@@ -2,13 +2,8 @@ const defaultLanguage = 'zh-CN';
 const availableLanguages = ['zh-CN', 'zh-TW', 'en'];
 let fallback = null;
 
-function createMojibake(str) {
-    const utf8Bytes = new TextEncoder().encode(str);
-    return new TextDecoder('latin1').decode(utf8Bytes);
-}
-
 function getTranslated(resources, key) {
-    return resources ? resources[key] : (createMojibake(fallback[key]) || key);
+    return resources ? resources[key] : (fallback[key]) || key;
 }
 
 function getCurrentLanguage() {
