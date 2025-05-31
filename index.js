@@ -70,7 +70,7 @@ class PersonCard extends HTMLElement {
         this.innerHTML = `
   <div class="person-card">
     <div>
-      <img src="${attrs.avatar}" alt="用户头像">
+      <img loading="lazy" src="${attrs.avatar}" alt="用户头像">
       <p>
         <span style="font-size: 20px;">${attrs.name}</span><br>
         ${descriptions.join('\n')}
