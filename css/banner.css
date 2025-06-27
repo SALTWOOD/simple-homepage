@@ -40,10 +40,6 @@ body.blur-disabled {
         visibility: hidden;
         opacity: 0;
     }
-
-    &::before {
-        filter: none;
-    }
 }
 
 html.darkmode {

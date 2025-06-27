@@ -1,0 +1,45 @@
+:root {
+    --blur-zero: blur(0);
+    --blur-max: blur(10px);
+    --brightness-zero: brightness(0%);
+    --brightness-half: brightness(50%);
+    --brightness-max: brightness(100%);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/backgrounds/background.webp');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    filter: var(--blur-max) var(--brightness-max);
+    transition: filter 0.8s ease;
+    z-index: -1;
+}
+
+body.blur-disabled::before {
+    filter: var(--blur-zero) var(--brightness-max);
+    transition: filter 0.8s ease;
+}
+
+html.darkmode body::before {
+    filter: var(--blur-max) var(--brightness-half);
+    transition: filter 0.8s ease;
+}
+
+html.darkmode body.blur-disabled::before {
+    filter: var(--blur-zero) var(--brightness-half);
+    transition: filter 0.8s ease;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    body::before {
+        background-image: url('/backgrounds/background-mobile.webp');
+    }
+}

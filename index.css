@@ -4,6 +4,7 @@
 @import url('/css/person-card.css');
 @import url('/css/custom.css');
 @import url('/css/banner.css');
+@import url('/css/background.css');
 
 body {
     font-family: 'Source Sans 3', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -16,10 +17,4 @@ body {
 
 .gap {
     padding-bottom: 1%;
-}
-
-@media (max-aspect-ratio: 1/1) {
-    body::before {
-        background-image: url('/backgrounds/background-mobile.webp');
-    }
 }

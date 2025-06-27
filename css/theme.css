@@ -13,23 +13,6 @@ body {
     margin: 0;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('/backgrounds/background.webp');
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    transition: filter 0.8s ease;
-    filter: blur(10px);
-    z-index: -1;
-}
-
 .main {
     display: flex;
     flex-direction: column;
@@ -155,10 +138,6 @@ a:hover {
 }
 
 html.darkmode {
-    & body::before {
-        filter: blur(10px) brightness(50%);
-    }
-
     & .card,
     .person-card {
         background-color: var(--card-background-dark);
