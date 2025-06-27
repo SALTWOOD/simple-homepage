@@ -1,4 +1,4 @@
-const version = "1.0.2";
+const version = "1.1.0";
 const tip = String.raw`
     __  __                                                         
    / / / / ____    ____ ___    ___    ____    ____ _  ____ _  ___  
@@ -140,7 +140,6 @@ function toggleTheme(mode = null) {
 
     // Banner 及模糊
     const body = document.body;
-    const scrollInfo = document.getElementById('scrollInfo');
     const threshold = 0.6;
     const vh = document.querySelector(".intro-section").scrollHeight ?? 0;
 
