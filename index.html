@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- Font Awesome -->
+    <link href="https://ski.ink/static/libs/font-awesome/6.7.2/css/fontawesome.min.css" rel="stylesheet">
+    <link href="https://ski.ink/static/libs/font-awesome/6.7.2/css/brands.min.css" rel="stylesheet">
+    <link href="https://ski.ink/static/libs/font-awesome/6.7.2/css/solid.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/jpg" href="https://saltwood.top:5244/d/友链头像/盐木.jpg">
+    <meta name="description" content="盐木自己搓的很难看的个人主页qwq">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盐木的主页</title>
+    <script defer src="https://saltwood.top:3033/script.js"
+        data-website-id="2dd46a5c-5631-48cf-89a3-db399e3c5032"></script>
+
+    <link href="/index.css" rel="stylesheet">
+    <script defer src="/index.js"></script>
+    <script defer src="/i18n.js"></script>
+</head>
+
+<body>
+    <header class="nav-header">
+        <button class="nav-menu-btn">☰ <span data-i18n="nav.menu">菜单</span></button>
+        <nav class="nav-main">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="/" data-i18n="nav.home">盐木的主页</a></li>
+                    <li><a href="https://blog.ski.ink/"><i class="fa fa-house"></i> <span
+                                data-i18n="nav.blog">博客</span></a></li>
+                    <li><a href="https://travellings.cn/go.html"><i class="fa fa-subway"></i> <span
+                                data-i18n="nav.travellings">开往</span></a></li>
+                    <li><a onclick="toggleTheme()"><i class="fa fa-moon"></i> <span
+                                data-i18n="nav.dark_mode">深色模式</span></a></li>
+                    <li><a onclick="toggleLanguage()"><i class="fa fa-globe"></i> <span
+                                data-i18n="nav.language">切换语言</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="intro-section">
+        <h1 class="intro-text" data-i18n="banner">欢迎光临，这里是盐木的小破窝~</h1>
+        <div class="scroll-indicator">↑</div>
+    </section>
+
+    <main class="main">
+        <section class="card">
+            <h2>About</h2>
+            <div class="container">
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/盐木.jpg" name="SALTWOOD"
+                    description1="来自广东省的一个废物高中生" description2="爱折腾编程，喜欢聊天，啥都想干却啥都干不好"
+                    link="https://ski.ink"></person-card>
+                <div data-i18n="about.content">
+                    来自广东省的一位学生，网名 <strong>SaltWood_233</strong>，大家可以叫我<strong>盐木</strong>！<br>
+                    喜欢写写代码、玩玩游戏，和听歌~<br>
+                    爱玩碧蓝航线之类的二游、部分音游、战舰世界和 Minecraft！<br>
+                </div>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> <span data-i18n="contact.email">邮箱</span>: <a
+                            href="mailto:admin@ski.ink">admin@ski.ink</a></li>
+                    <li><i class="fas fa-earth-asia"></i> <span data-i18n="contact.blog">博客</span>: <a
+                            href="https://blog.ski.ink/">https://blog.ski.ink/</a></li>
+                    <li><i class="fa-brands fa-github"></i> GitHub: <a
+                            href="https://github.com/SALTWOOD">https://github.com/SALTWOOD</a></li>
+                    <li>
+                        <i class="fa-brands fa-monero"></i> Monero:
+                        <a
+                            href="monero://47AUhaafGKJKEiycvvSWtL4uYR3MKcWDbV9nWX6QzuXhMRvdjayxD4ELGwArcZYdPuJe6KgFc7tzsZYWbtTmcUChJagiWcZ">
+                            <span data-i18n="contact.monero">请给我钱</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Websites</h2>
+            <div class="container horizontal-align">
+                <button onclick="openInNewTab('https://blog.ski.ink')" data-i18n="websites.blog">博客</button>
+                <button onclick="openInNewTab('https://saltwood.top:3001/status/all')"
+                    data-i18n="websites.status">服务状态</button>
+                <button onclick="openInNewTab('https://travellings.cn/go.html')"
+                    data-i18n="websites.travellings">开往</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Technology Stacks</h2>
+            <div class="container gap" data-i18n="tech.description">
+                盐木一直比较闲的说！<br>
+                如果你和我关系还算不错，欢迎随时来请教技术上的问题哦qwq<br>
+                要我写项目也不是不行啦……只是神金学校放假太少很大可能写不完（悲）<br>
+                <div style="font-size: 0.6em;">我会的都在下面啦（小声）</div>
+            </div>
+            <div class="container badges">
+                <img loading="lazy" src="https://img.shields.io/badge/TypeScript-%20?style=flat-square&logo=typescript&logoColor=white&color=3178c6"
+                    alt="TypeScript">
+                <img loading="lazy" src="https://img.shields.io/badge/.Net-%20?style=flat-square&logo=dotnet&logoColor=white&color=007cdc"
+                    alt=".Net">
+                <img loading="lazy" src="https://img.shields.io/badge/Python-%20?style=flat-square&logo=python&logoColor=white&color=306998"
+                    alt="Python">
+                <img loading="lazy" src="https://img.shields.io/badge/PHP-%20?style=flat-square&logo=php&logoColor=white&color=4f5b93"
+                    alt="PHP">
+                <img loading="lazy" src="https://img.shields.io/badge/JavaScript-%20?style=flat-square&logo=javascript&logoColor=white&color=f7df1e"
+                    alt="JavaScript">
+                <img loading="lazy" src="https://img.shields.io/badge/Java-%20?style=flat-square&logo=openjdk&logoColor=white&color=a57829"
+                    alt="Java">
+                <img loading="lazy" src="https://img.shields.io/badge/Vue.js-20?style=flat-square&logo=vue.js&logoColor=white&color=4FC08D"
+                    alt="Vue.js">
+                <img loading="lazy" src="https://img.shields.io/badge/Node.js-%20?style=flat-square&logo=nodedotjs&logoColor=white&color=339933"
+                    alt="Node.js">
+                <img loading="lazy" src="https://img.shields.io/badge/HTML5-%20?style=flat-square&logo=html5&logoColor=white&color=E34F26"
+                    alt="HTML5">
+                <img loading="lazy" src="https://img.shields.io/badge/Bun-%20?style=flat-square&logo=bun&logoColor=white&color=000000"
+                    alt="Bun">
+                <img loading="lazy" src="https://img.shields.io/badge/Vuetify-%20?style=flat-square&logo=vuetify&logoColor=white&color=1867c0"
+                    alt="Vuetify">
+                <img loading="lazy" src="https://img.shields.io/badge/Docker-%20?style=flat-square&logo=docker&logoColor=white&color=0c49c2"
+                    alt="Docker">
+                <img loading="lazy" src="https://img.shields.io/badge/C++-%20?style=flat-square&logo=cplusplus&logoColor=white&color=00589d"
+                    alt="C++">
+                <img loading="lazy" src="https://img.shields.io/badge/MySQL-%20?style=flat-square&logo=mysql&logoColor=white&color=4479A1"
+                    alt="MySQL">
+                <img loading="lazy" src="https://img.shields.io/badge/MariaDB-%20?style=flat-square&logo=mariadb&logoColor=white&color=003545"
+                    alt="MariaDB">
+                <img loading="lazy" src="https://img.shields.io/badge/Redis-%20?style=flat-square&logo=redis&logoColor=white&color=DC382D"
+                    alt="Redis">
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Games</h2>
+            <div class="container gap" data-i18n="games.title">
+                这里是盐木做的一些 HTML 小游戏！
+            </div>
+            <div class="container horizontal-align">
+                <button onclick="openInNewTab('/html/2048.html')">2048</button>
+                <button onclick="openInNewTab('/html/firework.html')" data-i18n="games.firework">烟花</button>
+                <button onclick="openInNewTab('/html/tetris.html')" data-i18n="games.tetris">俄罗斯方块</button>
+                <button onclick="openInNewTab('/html/minesweeper.html')" data-i18n="games.minesweeper">扫雷</button>
+                <button onclick="openInNewTab('/html/balls.html')" data-i18n="games.balls">物理小球</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Friends</h2>
+            <div class="container gap" data-i18n="friends.desc">
+                这里放一些好朋友的友链！<br>
+                如果你没在这里看到你的链接，不妨去<a href="https://blog.ski.ink/friends" target="_blank">这里</a>看看？<br>
+            </div>
+            <div>
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/夏沫花火.jpg" name="夏沫花火zzz🌙 (Muska_Ami)のLife"
+                    description1="Keep doing, keep loving." link="https://1l1.icu/"></person-card> <!-- 这是我姐！（x） -->
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/烟墨.png" name="烟墨的屑站点"
+                    description1="林花谢了春红，太匆匆。无奈朝来寒雨，晚来风。" link="https://ymbit.cn/"></person-card>
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/米露.png" name="米露小窝" description1="放弃个性，就和死了没什么区别"
+                    link="https://milu.ink/"></person-card>
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/阿龙.png" name="阿龙的笔记" description1="阿巴阿巴…"
+                    link="https://www.alongw.cn/"></person-card>
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/ZeroWolf.jpg" name="零狼の小窝"
+                    description1="404 Not Found." link="https://zerowolf.cn/"></person-card>
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/落雪.webp" name="落雪の自留地"
+                    description1="衣带渐宽终不悔，为伊消得人憔悴。" link="https://www.lxhtt.cn/"></person-card>
+                <person-card avatar="https://saltwood.top:5244/d/友链头像/Daiyangcheng.webp" name="Daiyangcheng's Blog"
+                    description1="dyc 的碎碎念" link="https://www.daiyangcheng.cn/"></person-card>
+            </div>
+        </section>
+
+        <section class="card" style="display: none;" id="something-hidden">
+            <h2>???</h2>
+            <div class="container">
+                <button onclick="openInNewTab('https://youtu.be/dQw4w9WgXcQ')">???</button>
+            </div>
+        </section>
+
+        <footer class="card">
+            <h2>Footer</h2>
+            <div class="container"
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span style="font-size: 0.8em;" data-i18n="footer.background">
+                    背景图 (PID: 126628153) 已得到作者授权使用
+                </span>
+                <span>
+                    <a href="https://pysio.online" target="_blank" style="text-decoration:none;color:inherit;">
+                        <img loading="lazy" src="https://saltwood.top:5244/d/友链头像/Pysio.jpg" alt="Pysio"
+                            style="height:1.8em; vertical-align: middle; background: #fff; padding: 2px; border-radius: 3px;">
+                        本网站由 Pysio 提供 CDN 加速服务
+                    </a>
+                </span>
+                <a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2024070515号-4</a>
+                <a href="https://beian.mps.gov.cn/#/query/webSearch?code=35018102240084" rel="noreferrer"
+                    target="_blank">
+                    <img loading="lazy" src="https://blog.ski.ink/wp-content/uploads/2025/05/image-36.webp"
+                        style="vertical-align: middle;" width="18px" height="20px" alt="公网安备图标">
+                    闽公网安备35018102240084号
+                </a>
+                <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力">
+                    <img loading="lazy" src="https://www.travellings.cn/assets/logo.svg" alt="开往-友链接力" width="120">
+                </a>
+                <a style="text-decoration: none; color: #51c4d3;" href="https://travel.moe/go.html?travel=on"
+                    title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！" target="_blank">
+                    <img loading="lazy" src="https://travel.moe/images/icon/icon64.png" style="width:24px; height:24px" alt="异次元之旅图标">
+                    异次元之旅
+                </a>
+                <a href="https://icp.gov.moe/?keyword=20250399" target="_blank">萌ICP备20250399号</a>
+                <a href="https://icp.星.fun/id.php?keyword=20250399" target="_blank">团ICP备20250399号</a>
+                <div data-i18n="footer.open_source">
+                    <i class="fa-brands fa-github"></i> 本项目已在 <a href="https://github.com/SALTWOOD/simple-homepage"
+                        target="_blank">GitHub</a> 开源<br>
+                </div>
+                <div>Version <span id="homepage-project-version"></span></div>
+            </div>
+        </footer>
+    </main>
+</body>
+
+</html>

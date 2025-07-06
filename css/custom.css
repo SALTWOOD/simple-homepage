@@ -1,0 +1,17 @@
+/* @font-face {
+    font-family: 'Minecraftia';
+    src: url('/static/fonts/Minecraftia-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+h2, .container, .nav-links>li>a {
+    font-family: 'Minecraftia', monospace !important;
+} */
+
+@media (max-aspect-ratio: 1/1) {
+    body::before {
+        background-image: url('/backgrounds/background.webp') !important;
+    }
+}
