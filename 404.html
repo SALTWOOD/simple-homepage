@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未找到 - 404错误</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+            user-select: none;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 40px;
+        }
+        
+        .emoji {
+            font-size: 6rem;
+            flex-shrink: 0;
+        }
+        
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .error-type {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #e74c3c;
+            text-shadow: 0 2px 4px rgba(231, 76, 60, 0.15);
+        }
+        
+        .error-message {
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(231, 76, 60, 0.15);
+            margin-bottom: 2%;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            background: #3498db;
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-home {
+            background: #2ecc71;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        @media (max-width: 700px) {
+            .content-wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .message-container {
+                align-items: center;
+            }
+            
+            .emoji {
+                font-size: 5rem;
+            }
+            
+            .error-message {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .emoji {
+                font-size: 4rem;
+            }
+            
+            .error-message {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="emoji">(っ °Д °;)っ</div>
+        
+        <div class="message-container">
+            <div class="error-type">404</div>
+            <div class="error-message">啊哦，页面被腐蚀了</div>
+            
+            <div class="buttons">
+                <button class="btn" onclick="window.history.back()">
+                    返回上一页
+                </button>
+                <button class="btn btn-home" onclick="window.location.href='/'">
+                    回到主页
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
