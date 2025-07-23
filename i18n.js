@@ -18,7 +18,6 @@ async function loadLanguage(lang) {
         try {
             const response = await import(`/lang/${lang}.js`);
             resources = await response.json();
-            document.getElementById("something-hidden").style.display = "none";
         } catch (error) {
             console.error(`Failed to load ${lang}:`, error);
             resources = null;
@@ -29,8 +28,7 @@ async function loadLanguage(lang) {
         const key = el.getAttribute('data-i18n');
         el.innerHTML = getTranslated(resources, key);
     });
-
-    if (!resources) document.getElementById("something-hidden").style.display = "block";
+    
     document.title = await getTranslated(resources, "title");
     document.documentElement.lang = resources ? lang : defaultLanguage;
 }
