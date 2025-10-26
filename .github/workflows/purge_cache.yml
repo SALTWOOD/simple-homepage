@@ -15,6 +15,6 @@ jobs:
             -H "Content-Type: application/json" \
             --data '{
               "files": [
-                "https://ski.ink/*",
+                "https://ski.ink/*"
               ]
             }'
