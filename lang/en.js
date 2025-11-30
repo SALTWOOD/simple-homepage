@@ -19,6 +19,7 @@ export function json() {
         'websites.blog': 'Blog',
         'websites.status': 'Service Status',
         'websites.travellings': 'Travellings',
+        'websites.watchme': 'Snoop on Me',
         'tech.description': `I usually have free time!<br>
             If we're acquainted, feel free to ask me technical questions anytime~<br>
             Can take on projects too... but school leaves little time for completion clll<br>

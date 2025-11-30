@@ -19,6 +19,7 @@ export function json() {
         'websites.blog': '博客',
         'websites.status': '服务状态',
         'websites.travellings': '开往',
+        'websites.watchme': '视奸我',
         'tech.description': `盐木一直比较闲的说！<br>
             如果你和我关系还算不错，欢迎随时来请教技术上的问题哦qwq<br>
             要我写项目也不是不行啦……只是神金学校放假太少很大可能写不完（悲）<br>

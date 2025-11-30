@@ -19,6 +19,7 @@ export function json() {
         'websites.blog': '部落格',
         'websites.status': '服務狀態',
         'websites.travellings': '開往',
+        'websites.watchme': '偷窺我',
         'tech.description': `SALTWOOD 一直比較閒的說！<br>
             如果你和我關係還算不錯，歡迎隨時來請教技術上的問題<br>
             要我寫專案也不是不行啦...只是機車學校放假太少很可能寫不完<br>
