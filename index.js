@@ -1,4 +1,4 @@
-const version = "1.1.0";
+const version = "1.2.0";
 const tip = String.raw`
     __  __                                                         
    / / / / ____    ____ ___    ___    ____    ____ _  ____ _  ___  
