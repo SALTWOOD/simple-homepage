@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>似了吗？</title>
+    <link href="/index.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,7 +13,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-        
+
         body {
             background-color: #f5f5f5;
             color: #333;
@@ -19,21 +21,7 @@
             padding: 20px;
             position: relative;
         }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: var(--bg-image, url('https://api.imlazy.ink/img'));
-            background-size: cover;
-            background-position: center;
-            filter: blur(8px);
-            z-index: -1;
-        }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -41,28 +29,28 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
-        
+
         header {
             background-color: #2c3e50;
             color: white;
             padding: 25px;
             text-align: center;
         }
-        
+
         h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
         }
-        
+
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
         }
-        
+
         .status-container {
             padding: 30px;
         }
-        
+
         .online-status {
             background-color: #e8f5e9;
             border-left: 5px solid #4caf50;
@@ -73,7 +61,7 @@
             align-items: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .maybe-status {
             background-color: #fff3e0;
             border-left: 5px solid #ff9800;
@@ -84,7 +72,7 @@
             align-items: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .offline-status {
             background-color: #ffebee;
             border-left: 5px solid #f44336;
@@ -95,7 +83,7 @@
             align-items: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .error-status {
             background-color: #ffebee;
             border-left: 5px solid #f44336;
@@ -106,30 +94,30 @@
             align-items: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .status-icon {
             font-size: 2.5rem;
             margin-right: 20px;
         }
-        
+
         .status-text {
             font-size: 1.4rem;
             font-weight: bold;
         }
-        
+
         .status-detail {
             margin-top: 8px;
             font-size: 1rem;
             font-weight: normal;
             opacity: 0.8;
         }
-        
+
         .devices-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
-        
+
         .device-card {
             background: white;
             border-radius: 10px;
@@ -138,12 +126,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e0e0e0;
         }
-        
+
         .device-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
-        
+
         .device-header {
             display: flex;
             justify-content: space-between;
@@ -152,66 +140,66 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
-        
+
         .device-name {
             font-size: 1.3rem;
             font-weight: bold;
             color: #2c3e50;
         }
-        
+
         .device-status {
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: bold;
         }
-        
+
         .online {
             background-color: #e8f5e9;
             color: #2e7d32;
         }
-        
+
         .offline {
             background-color: #ffebee;
             color: #c62828;
         }
-        
+
         .screen-off {
             background-color: #fff3e0;
             color: #ef6c00;
         }
-        
+
         .locked {
             background-color: #e3f2fd;
             color: #1565c0;
         }
-        
+
         .heartbeat-timeout {
             background-color: #ffebee;
             color: #c62828;
             border: 1px dashed #c62828;
         }
-        
+
         .device-info {
             margin-top: 15px;
         }
-        
+
         .info-item {
             margin-bottom: 10px;
             display: flex;
         }
-        
+
         .info-label {
             font-weight: bold;
             min-width: 120px;
             color: #555;
         }
-        
+
         .info-value {
             flex: 1;
             word-break: break-word;
         }
-        
+
         footer {
             text-align: center;
             padding: 20px;
@@ -219,23 +207,23 @@
             margin-top: 30px;
             font-size: 0.9rem;
         }
-        
+
         @media (max-width: 768px) {
             .devices-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
         }
-        
+
         .loading {
             text-align: center;
             padding: 40px;
             font-size: 1.2rem;
         }
-        
+
         .refresh-btn {
             background-color: #2c3e50;
             color: white;
@@ -247,11 +235,11 @@
             margin-top: 15px;
             transition: background-color 0.3s;
         }
-        
+
         .refresh-btn:hover {
             background-color: #1a252f;
         }
-        
+
         .next-update {
             text-align: center;
             margin-top: 15px;
@@ -260,32 +248,33 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>似了吗？</h1>
             <p class="subtitle">看看盐木似了没</p>
         </header>
-        
+
         <div class="status-container">
             <div id="status-message">
                 <div class="loading">正在加载设备状态...</div>
             </div>
-            
+
             <div class="devices-grid" id="devices-container">
                 <!-- 设备卡片将通过JavaScript动态生成 -->
             </div>
-            
+
             <div style="text-align: center; margin-top: 20px;">
                 <button class="refresh-btn" id="refresh-btn">立即刷新</button>
             </div>
-            
+
             <div class="next-update" id="next-update">
                 下一次更新: <span id="countdown">10</span>秒
             </div>
         </div>
     </div>
-    
+
     <footer>
         <p>最后更新: <span id="last-update-time"></span></p>
     </footer>
@@ -304,7 +293,7 @@
                 second: '2-digit'
             });
         }
-        
+
         // 计算时间差
         function getMinutesDiff(dateString) {
             if (!dateString) return Infinity;
@@ -326,40 +315,40 @@
                 2: "屏幕关闭",
                 3: "已锁定"
             };
-            
+
             let statusText = statusMap[status] || "未知";
-            
+
             // 心跳超时
             if (status === 1 && isHeartbeatTimeout(lastUpdatedAt)) {
                 statusText = "心跳超时";
             }
-            
+
             return statusText;
         }
-        
+
         // 获取设备状态 CSS 类名
         function getStatusClass(status, lastUpdatedAt) {
             if (status === 1 && isHeartbeatTimeout(lastUpdatedAt)) {
                 return "heartbeat-timeout";
             }
-            
+
             const classMap = {
                 0: "offline",
                 1: "online",
                 2: "screen-off",
                 3: "locked"
             };
-            
+
             return classMap[status] || "offline";
         }
 
         // 判断整体在线状态
         function getOverallStatus(devices) {
             // 检查是否有设备在线且心跳正常
-            const hasActiveDevice = devices.some(device => 
+            const hasActiveDevice = devices.some(device =>
                 device.status === 1 && !isHeartbeatTimeout(device.lastUpdatedAt)
             );
-            
+
             if (hasActiveDevice) {
                 return {
                     status: "online",
@@ -367,12 +356,12 @@
                     detail: "可以直接尝试联系"
                 };
             }
-            
+
             // 获取所有设备的最后在线时间
             const lastOnlineTimes = devices
                 .map(device => device.lastOnline ? new Date(device.lastOnline).getTime() : 0)
                 .filter(time => time > 0);
-            
+
             if (lastOnlineTimes.length === 0) {
                 return {
                     status: "offline",
@@ -380,11 +369,11 @@
                     detail: "可能是在睡回笼觉、上学、去外面了"
                 };
             }
-            
+
             // 获取最近的最后在线时间
             const latestLastOnline = Math.max(...lastOnlineTimes);
             const minutesSinceLastOnline = getMinutesDiff(new Date(latestLastOnline));
-            
+
             if (minutesSinceLastOnline <= 15) {
                 return {
                     status: "online",
@@ -432,7 +421,7 @@
                     </div>
                 </div>
             `;
-            
+
             document.getElementById('devices-container').innerHTML = '';
             document.getElementById('last-update-time').textContent = formatDateTime(new Date());
         }
@@ -441,12 +430,12 @@
         function renderPage(data) {
             const devices = data.data;
             const overallStatus = getOverallStatus(devices);
-            
+
             // 更新状态消息
             const statusMessage = document.getElementById('status-message');
             let statusClass = "";
             let statusIcon = "";
-            
+
             if (overallStatus.status === "online") {
                 statusClass = "online-status";
                 statusIcon = "✅";
@@ -457,7 +446,7 @@
                 statusClass = "offline-status";
                 statusIcon = "❌";
             }
-            
+
             statusMessage.innerHTML = `
                 <div class="${statusClass}">
                     <div class="status-icon">${statusIcon}</div>
@@ -467,18 +456,18 @@
                     </div>
                 </div>
             `;
-            
+
             // 渲染设备卡片
             const devicesContainer = document.getElementById('devices-container');
             devicesContainer.innerHTML = '';
-            
+
             devices.forEach(device => {
                 const deviceCard = document.createElement('div');
                 deviceCard.className = 'device-card';
-                
+
                 const statusText = getStatusText(device.status, device.lastUpdatedAt);
                 const statusClass = getStatusClass(device.status, device.lastUpdatedAt);
-                
+
                 deviceCard.innerHTML = `
                     <div class="device-header">
                         <div class="device-name">${device.name}</div>
@@ -501,10 +490,10 @@
                         </div>
                     </div>
                 `;
-                
+
                 devicesContainer.appendChild(deviceCard);
             });
-            
+
             // 更新页脚时间
             document.getElementById('last-update-time').textContent = formatDateTime(new Date());
         }
@@ -515,30 +504,30 @@
         }
 
         // 初始化页面
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             let countdown = 10;
             let countdownInterval;
-            
+
             // 开始倒计时
             function startCountdown() {
                 countdown = 10;
                 updateCountdown(countdown);
-                
+
                 if (countdownInterval) {
                     clearInterval(countdownInterval);
                 }
-                
+
                 countdownInterval = setInterval(() => {
                     countdown--;
                     updateCountdown(countdown);
-                    
+
                     if (countdown <= 0) {
                         clearInterval(countdownInterval);
                         fetchAndUpdateData();
                     }
                 }, 1000);
             }
-            
+
             // 获取并更新数据
             async function fetchAndUpdateData() {
                 try {
@@ -551,22 +540,22 @@
                     startCountdown();
                 }
             }
-            
+
             // 初始加载
             fetchAndUpdateData();
-            
+
             // 刷新按钮事件
-            document.getElementById('refresh-btn').addEventListener('click', async function() {
+            document.getElementById('refresh-btn').addEventListener('click', async function () {
                 this.disabled = true;
                 this.textContent = '刷新中...';
-                
+
                 // 清除当前倒计时
                 if (countdownInterval) {
                     clearInterval(countdownInterval);
                 }
-                
+
                 await fetchAndUpdateData();
-                
+
                 setTimeout(() => {
                     this.disabled = false;
                     this.textContent = '立即刷新';
@@ -575,4 +564,5 @@
         });
     </script>
 </body>
+
 </html>
