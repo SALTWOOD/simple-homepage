@@ -330,7 +330,7 @@
 
         // Heartbeat
         function isHeartbeatTimeout(lastUpdatedAt) {
-            return getMinutesDiff(lastUpdatedAt) > 10;
+            return getMinutesDiff(lastUpdatedAt) > 8;
         }
 
         // Get device status text
@@ -345,7 +345,7 @@
             let statusText = statusMap[status] || "未知";
 
             // Heartbeat timeout
-            if (status === 1 && isHeartbeatTimeout(lastUpdatedAt)) {
+            if (status !== 0 && isHeartbeatTimeout(lastUpdatedAt)) {
                 statusText = "心跳超时";
             }
 
