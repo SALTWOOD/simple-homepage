@@ -566,14 +566,14 @@
                             <div class="info-label">最后在线:</div>
                             <div class="info-value">${formatDateTime(device.lastOnline)}</div>
                         </div>
-                        ${batteryText ? `<div class="info-item">
-                            <div class="info-label">电池:</div>
-                            <div class="info-value ${batteryClassName}"><strong>${batteryText}</strong></div>
-                        </div>` : ''}
                         <div class="info-item">
                             <div class="info-label">状态消息:</div>
                             <div class="info-value">${device.message}</div>
                         </div>
+                        ${batteryText ? `<div class="info-item">
+                            <div class="info-label">电池:</div>
+                            <div class="info-value ${batteryClassName}"><strong>${batteryText}</strong></div>
+                        </div>` : ''}
                     </div>
                 `;
 
