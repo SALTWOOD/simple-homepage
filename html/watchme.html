@@ -392,7 +392,7 @@
             }
 
             const { power, charging } = battery;
-            let text = `电量: ${power}%`;
+            let text = `${power}%`;
             let className = '';
 
             // Charging
@@ -567,7 +567,7 @@
                             <div class="info-value">${formatDateTime(device.lastOnline)}</div>
                         </div>
                         ${batteryText ? `<div class="info-item">
-                            <div class="info-label">电池状态:</div>
+                            <div class="info-label">电池:</div>
                             <div class="info-value ${batteryClassName}"><strong>${batteryText}</strong></div>
                         </div>` : ''}
                         <div class="info-item">
