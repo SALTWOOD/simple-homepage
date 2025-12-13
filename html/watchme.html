@@ -214,6 +214,22 @@
             word-break: break-word;
         }
 
+        .battery-low {
+            color: #f44336;
+        }
+
+        .battery-charging {
+            color: #ff9800;
+        }
+
+        .battery-charged {
+            color: #4caf50;
+        }
+
+        .battery-normal {
+            color: #333;
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -230,13 +246,13 @@
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .device-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
-            
+
             .device-name-container {
                 flex-direction: column;
                 align-items: flex-start;
@@ -368,6 +384,35 @@
             return classMap[status] || "offline";
         }
 
+        // Battery info
+        function getBatteryInfo(battery) {
+            // No available battery
+            if (!battery || battery.power === undefined) {
+                return { text: '', className: '' };
+            }
+
+            const { power, charging } = battery;
+            let text = `电量: ${power}%`;
+            let className = '';
+
+            // Charging
+            if (charging) {
+                text += ' (充电中)';
+                // Full
+                if (power >= 100) {
+                    className = 'battery-charged';
+                }
+                // Charging but not full
+                else {
+                    className = 'battery-charging';
+                }
+            }
+            // Not charging
+            else className = power <= 15 ? 'battery-low' : 'battery-normal';
+
+            return { text, className };
+        }
+
         // Determine overall online status
         function getOverallStatus(data) {
             // Ignore some devices
@@ -413,13 +458,13 @@
                 return {
                     status: "maybe",
                     message: "可能似了",
-                    detail: "可能是在睡回笼觉、上学、去外面了"
+                    detail: "可能是在睡回笼觉、上学路上，或者刚睡"
                 };
             } else {
                 return {
                     status: "offline",
                     message: "似了",
-                    detail: "应该是在学校或者别的地方，或者这懒猪根本没起床"
+                    detail: "应该是在上课或者忙别的，或者这懒猪根本没起床"
                 };
             }
         }
@@ -496,7 +541,9 @@
 
                 const statusText = getStatusText(device.status, device.lastUpdatedAt);
                 const statusClass = getStatusClass(device.status, device.lastUpdatedAt);
-                
+                // 新增：获取当前设备的电池信息
+                const { text: batteryText, className: batteryClassName } = getBatteryInfo(device.battery);
+
                 // 检查设备是否被忽略
                 const ignoredLabel = device.ignored ? '<span class="ignored-label">(已忽略)</span>' : '';
 
@@ -514,11 +561,15 @@
                         <div class="info-item">
                             <div class="info-label">最后心跳:</div>
                             <div class="info-value">${formatDateTime(device.lastUpdatedAt)}</div>
-                        </div>
+                            </div>
                         <div class="info-item">
                             <div class="info-label">最后在线:</div>
                             <div class="info-value">${formatDateTime(device.lastOnline)}</div>
                         </div>
+                        ${batteryText ? `<div class="info-item">
+                            <div class="info-label">电池状态:</div>
+                            <div class="info-value ${batteryClassName}"><strong>${batteryText}</strong></div>
+                        </div>` : ''}
                         <div class="info-item">
                             <div class="info-label">状态消息:</div>
                             <div class="info-value">${device.message}</div>
