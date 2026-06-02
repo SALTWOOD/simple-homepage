@@ -42,7 +42,7 @@ jobs:
         with:
           path: |
             .nuxt
-          key: ${{ runner.os }}-nuxt-build-${{ hashFiles('.nuxt') }}
+          key: ${{ runner.os }}-nuxt-build-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-nuxt-build-
 
