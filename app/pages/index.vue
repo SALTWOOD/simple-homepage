@@ -27,7 +27,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
           <div class="section-body">
             <div class="flex flex-col items-center gap-8">
               <PersonCard
-                avatar="https://saltwood.top:5244/d/友链头像/盐木.png"
+                avatar="https://static.ski.ink/avatar.webp"
                 name="SALTWOOD"
                 :description1="$t('about.description1')"
                 :description2="$t('about.description2')"
