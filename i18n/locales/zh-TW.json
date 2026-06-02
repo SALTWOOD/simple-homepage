@@ -39,8 +39,7 @@
     "desc": "這裡放一些好朋友的友鏈！<br>如果你沒在這裡看到你的連結，不妨去<a href=\"https://blog.ski.ink/friends\" target=\"_blank\">這裡</a>看看？<br>"
   },
   "footer": {
-    "background": "背景圖 (PID: 126628153) 已得到作者授權使用",
-    "open_source": "<i class=\"fa-brands fa-github\"></i> 本專案已在 <a href=\"https://github.com/SALTWOOD/simple-homepage\" target=\"_blank\">GitHub</a> 開源<br>"
+    "background": "背景圖 (PID: 126628153) 已得到作者授權使用"
   },
   "404": {
     "emoji": "(っ °Д °;)っ",

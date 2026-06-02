@@ -39,8 +39,7 @@
     "desc": "Here are some friends' links!<br>If you don't see your link here, why not check <a href=\"https://blog.ski.ink/friends\" target=\"_blank\">here</a>?<br>"
   },
   "footer": {
-    "background": "Background image (PID: 126628153) used with author's permission",
-    "open_source": "<i class=\"fa-brands fa-github\"></i> This project is open source on <a href=\"https://github.com/SALTWOOD/simple-homepage\" target=\"_blank\">GitHub</a><br>"
+    "background": "Background image (PID: 126628153) used with author's permission"
   },
   "404": {
     "emoji": "(っ °Д °;)っ",

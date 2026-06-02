@@ -126,71 +126,71 @@ onUnmounted(() => {
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
-        <p class="footer-text">
-          {{ $t('footer.background') }}
-        </p>
-        <p
-          class="footer-text"
-          v-html="$t('footer.open_source')"
-        />
-        <div class="flex flex-col items-center gap-y-1 footer-text">
+        <span class="footer-text">{{ $t('footer.background') }}</span>
+        <span class="footer-text">
+          <UIcon
+            name="i-simple-icons-github"
+            class="size-4"
+          />
           <a
-            href="https://beian.miit.gov.cn/"
+            href="https://github.com/SALTWOOD/simple-homepage"
             target="_blank"
-            rel="noopener"
-            class="hover:underline"
           >
-            闽ICP备2024070515号-4
+            SALTWOOD/simple-homepage
           </a>
-          <a
-            href="http://www.beian.gov.cn/"
-            target="_blank"
-            rel="noopener"
-            class="hover:underline"
+        </span>
+        <a
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noopener"
+          class="footer-text hover:underline"
+        >
+          闽ICP备2024070515号-4
+        </a>
+        <a
+          href="http://www.beian.gov.cn/"
+          target="_blank"
+          rel="noopener"
+          class="footer-text hover:underline"
+        >
+          公网安备35018102240084号
+        </a>
+        <a
+          href="https://icp.gov.moe/"
+          target="_blank"
+          rel="noopener"
+          class="footer-text hover:underline"
+        >
+          萌ICP备20250399号
+        </a>
+        <a
+          href="https://icp.gov.moe/"
+          target="_blank"
+          rel="noopener"
+          class="footer-text hover:underline"
+        >
+          团ICP备20250399号
+        </a>
+        <a
+          href="https://travellings.cn"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="https://www.travellings.cn/assets/logo.svg"
+            alt="开往-友链接力"
+            class="h-5 opacity-70 hover:opacity-100 transition-opacity"
           >
-            公网安备35018102240084号
-          </a>
-          <a
-            href="https://icp.gov.moe/"
-            target="_blank"
-            rel="noopener"
-            class="hover:underline"
-          >
-            萌ICP备20250399号
-          </a>
-          <a
-            href="https://icp.gov.moe/"
-            target="_blank"
-            rel="noopener"
-            class="hover:underline"
-          >
-            团ICP备20250399号
-          </a>
-        </div>
-        <div class="flex items-center justify-center gap-3">
-          <a
-            href="https://travellings.cn"
-            target="_blank"
-            rel="noopener"
-          >
-            <img
-              src="https://www.travellings.cn/assets/logo.svg"
-              alt="开往-友链接力"
-              class="h-5 opacity-70 hover:opacity-100 transition-opacity"
-            >
-          </a>
-          <a
-            href="https://travellings.cn"
-            target="_blank"
-            rel="noopener"
-            class="footer-text hover:underline"
-          >
-            异次元之旅
-          </a>
-        </div>
-        <p class="footer-version">
-          Version v2.0.0
-        </p>
+        </a>
+        <a
+          href="https://travellings.cn"
+          target="_blank"
+          rel="noopener"
+          class="footer-text hover:underline"
+        >
+          异次元之旅
+        </a>
+        <span class="footer-text">Version v2.0.0</span>
       </div>
     </footer>
   </div>
@@ -225,12 +225,8 @@ onUnmounted(() => {
 .footer-text {
   font-size: 0.9em;
   color: var(--ui-text-dimmed);
-  line-height: 1.6;
-}
-
-.footer-version {
-  font-size: 0.85em;
-  color: var(--ui-text-dimmed);
+  line-height: 1;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
