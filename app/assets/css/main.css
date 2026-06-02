@@ -34,12 +34,6 @@
   filter: blur(3px) brightness(0.8);
 }
 
-@media (max-width: 768px) {
-  .page-background {
-    background-image: url('/backgrounds/background-mobile.webp');
-  }
-}
-
 /* Badge images */
 .tech-badge {
   height: 28px;
