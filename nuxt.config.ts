@@ -10,8 +10,6 @@ export default defineNuxtConfig({
     enabled: true
   },
 
-  css: ['~/assets/css/main.css'],
-
   app: {
     head: {
       htmlAttrs: { lang: 'zh-CN' },
@@ -33,6 +31,24 @@ export default defineNuxtConfig({
     }
   },
 
+  css: ['~/assets/css/main.css'],
+
+  routeRules: {
+    '/': { prerender: true },
+    '/404': { prerender: true }
+  },
+
+  compatibilityDate: '2025-01-15',
+
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  },
+
   i18n: {
     locales: [
       { code: 'zh-CN', file: 'zh-CN.json', name: '简体中文' },
@@ -50,22 +66,6 @@ export default defineNuxtConfig({
     },
     compilation: {
       strictMessage: false
-    }
-  },
-
-  routeRules: {
-    '/': { prerender: true },
-    '/404': { prerender: true }
-  },
-
-  compatibilityDate: '2025-01-15',
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
     }
   }
 })

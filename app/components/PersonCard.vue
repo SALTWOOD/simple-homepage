@@ -7,7 +7,7 @@ interface Props {
   link?: string
 }
 
-const props = defineProps<Props>()
+const _props = defineProps<Props>()
 </script>
 
 <template>
@@ -25,34 +25,54 @@ const props = defineProps<Props>()
           :src="avatar"
           :alt="name"
           class="w-16 h-16 rounded-full object-cover shrink-0"
-        />
+        >
         <div class="min-w-0 flex-1">
           <h3 class="font-semibold text-base truncate">{{ name }}</h3>
-          <p v-if="description1" class="text-sm text-(--ui-text-muted) truncate">
+          <p
+            v-if="description1"
+            class="text-sm text-(--ui-text-muted) truncate"
+          >
             {{ description1 }}
           </p>
-          <p v-if="description2" class="text-xs text-(--ui-text-dimmed) truncate">
+          <p
+            v-if="description2"
+            class="text-xs text-(--ui-text-dimmed) truncate"
+          >
             {{ description2 }}
           </p>
         </div>
-        <UIcon name="i-lucide-external-link" class="shrink-0 text-(--ui-text-dimmed) size-4" />
+        <UIcon
+          name="i-lucide-external-link"
+          class="shrink-0 text-(--ui-text-dimmed) size-4"
+        />
       </div>
     </UCard>
   </NuxtLink>
 
-  <UCard v-else class="h-full">
+  <UCard
+    v-else
+    class="h-full"
+  >
     <div class="flex items-center gap-4">
       <img
         :src="avatar"
         :alt="name"
         class="w-20 h-20 rounded-full object-cover shrink-0"
-      />
+      >
       <div class="min-w-0 flex-1">
-        <h3 class="font-semibold text-lg">{{ name }}</h3>
-        <p v-if="description1" class="text-sm text-(--ui-text-muted)">
+        <h3 class="font-semibold text-lg">
+          {{ name }}
+        </h3>
+        <p
+          v-if="description1"
+          class="text-sm text-(--ui-text-muted)"
+        >
           {{ description1 }}
         </p>
-        <p v-if="description2" class="text-sm text-(--ui-text-dimmed)">
+        <p
+          v-if="description2"
+          class="text-sm text-(--ui-text-dimmed)"
+        >
           {{ description2 }}
         </p>
       </div>

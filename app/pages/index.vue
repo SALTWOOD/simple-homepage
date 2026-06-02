@@ -13,17 +13,21 @@ import { techBadges, friends } from '~/composables/useSiteData'
         {{ $t('banner') }}
       </p>
       <div class="scroll-indicator absolute bottom-8 left-1/2">
-        <UIcon name="i-lucide-chevron-down" class="size-6 text-(--ui-text-dimmed)" />
+        <UIcon
+          name="i-lucide-chevron-down"
+          class="size-6 text-(--ui-text-dimmed)"
+        />
       </div>
     </section>
 
     <!-- Content wrapper -->
     <div class="main-content">
       <div class="max-w-[1000px] mx-auto px-5 py-5 flex flex-col gap-5">
-
         <!-- About Section -->
         <section class="section-card">
-          <h2 class="section-title">About</h2>
+          <h2 class="section-title">
+            About
+          </h2>
           <div class="section-body">
             <div class="flex flex-col items-center gap-8">
               <PersonCard
@@ -34,7 +38,10 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 link="https://ski.ink"
               />
 
-              <p class="text-center max-w-2xl leading-relaxed" v-html="$t('about.content')" />
+              <p
+                class="text-center max-w-2xl leading-relaxed"
+                v-html="$t('about.content')"
+              />
 
               <!-- Contact Buttons -->
               <div class="flex flex-wrap justify-center gap-3">
@@ -73,7 +80,9 @@ import { techBadges, friends } from '~/composables/useSiteData'
 
         <!-- Websites Section -->
         <section class="section-card">
-          <h2 class="section-title">Websites</h2>
+          <h2 class="section-title">
+            Websites
+          </h2>
           <div class="section-body">
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <UButton
@@ -117,9 +126,14 @@ import { techBadges, friends } from '~/composables/useSiteData'
 
         <!-- Tech Stacks Section -->
         <section class="section-card">
-          <h2 class="section-title">Technology Stacks</h2>
+          <h2 class="section-title">
+            Technology Stacks
+          </h2>
           <div class="section-body">
-            <p class="mb-6" v-html="$t('tech.description')" />
+            <p
+              class="mb-6"
+              v-html="$t('tech.description')"
+            />
             <div class="flex flex-wrap gap-3">
               <img
                 v-for="tech in techBadges"
@@ -128,16 +142,20 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 :alt="tech.label"
                 class="tech-badge"
                 height="28"
-              />
+              >
             </div>
           </div>
         </section>
 
         <!-- Games Section -->
         <section class="section-card">
-          <h2 class="section-title">Games</h2>
+          <h2 class="section-title">
+            Games
+          </h2>
           <div class="section-body">
-            <p class="mb-6">{{ $t('games.title') }}</p>
+            <p class="mb-6">
+              {{ $t('games.title') }}
+            </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               <UButton
                 to="/html/2048.html"
@@ -185,9 +203,14 @@ import { techBadges, friends } from '~/composables/useSiteData'
 
         <!-- Friends Section -->
         <section class="section-card">
-          <h2 class="section-title">Friends</h2>
+          <h2 class="section-title">
+            Friends
+          </h2>
           <div class="section-body">
-            <p class="mb-6" v-html="$t('friends.desc')" />
+            <p
+              class="mb-6"
+              v-html="$t('friends.desc')"
+            />
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <PersonCard
                 v-for="friend in friends"
@@ -200,7 +223,6 @@ import { techBadges, friends } from '~/composables/useSiteData'
             </div>
           </div>
         </section>
-
       </div>
     </div>
   </div>

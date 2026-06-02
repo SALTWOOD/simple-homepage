@@ -51,7 +51,7 @@ export const friends: Friend[] = [
     link: 'https://lihaoyu.cn/'
   },
   {
-    name: "Daiyangcheng's Blog",
+    name: 'Daiyangcheng\'s Blog',
     desc: 'dyc 的碎碎念',
     avatar: `${friendAvatarBase}Daiyangcheng.png`,
     link: 'https://www.daiyangcheng.cn/'
