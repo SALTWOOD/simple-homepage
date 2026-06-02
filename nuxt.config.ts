@@ -36,7 +36,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
     '/404': { prerender: true },
-    '/games': { ssr: false }
+    '/games/**': { ssr: false }
   },
 
   compatibilityDate: '2025-01-15',
