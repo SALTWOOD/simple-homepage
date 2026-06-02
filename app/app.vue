@@ -8,8 +8,8 @@ useHead({
   ]
 })
 
-const title = '盐木 | SaltWood'
-const description = '盐木的个人主页 - 一个热爱折腾的学生'
+const title = '盐木的小破窝'
+const description = '一个热爱折腾的学生的个人主页'
 
 useSeoMeta({
   title,
