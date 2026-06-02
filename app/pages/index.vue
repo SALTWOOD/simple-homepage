@@ -134,7 +134,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
               class="mb-6"
               v-html="$t('tech.description')"
             />
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap">
               <img
                 v-for="tech in techBadges"
                 :key="tech.label"
