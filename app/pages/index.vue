@@ -7,10 +7,10 @@ import { techBadges, friends } from '~/composables/useSiteData'
     <!-- Hero Banner -->
     <section class="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center text-center px-4">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">
-        {{ $t('title') }}
+        盐木的主页
       </h1>
       <p class="text-lg md:text-xl text-(--ui-text-muted) max-w-xl">
-        {{ $t('banner') }}
+        欢迎光临，这里是盐木的小破窝~
       </p>
       <div class="scroll-indicator absolute bottom-8 left-1/2">
         <UIcon name="i-lucide-chevron-down" class="size-6 text-(--ui-text-dimmed)" />
@@ -29,12 +29,12 @@ import { techBadges, friends } from '~/composables/useSiteData'
               <PersonCard
                 avatar="https://saltwood.top:5244/d/友链头像/盐木.png"
                 name="SALTWOOD"
-                :description1="$t('about.description1')"
-                :description2="$t('about.description2')"
+                description1="来自广东省的一个废物高中生"
+                description2="爱折腾编程，喜欢聊天，啥都想干却啥都干不好"
                 link="https://ski.ink"
               />
 
-              <p class="text-center max-w-2xl leading-relaxed" v-html="$t('about.content')" />
+              <p class="text-center max-w-2xl leading-relaxed" v-html="'来自广东省的一位学生，网名 <strong>SaltWood_233</strong>，大家可以叫我<strong>盐木</strong>！<br>喜欢写写代码、玩玩游戏，和听歌~<br>爱玩碧蓝航线之类的二游、部分音游、战舰世界和 Minecraft！<br>'" />
 
               <!-- Contact Buttons -->
               <div class="flex flex-wrap justify-center gap-3">
@@ -42,14 +42,14 @@ import { techBadges, friends } from '~/composables/useSiteData'
                   to="mailto:admin@ski.ink"
                   target="_blank"
                   icon="i-lucide-mail"
-                  :label="$t('contact.email')"
+                  label="邮箱"
                   variant="outline"
                 />
                 <UButton
                   to="https://blog.ski.ink"
                   target="_blank"
                   icon="i-lucide-book-open"
-                  :label="$t('contact.blog')"
+                  label="博客"
                   variant="outline"
                 />
                 <UButton
@@ -63,7 +63,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                   to="https://saltwood.top:5244/d/Monero/wallet_address.txt"
                   target="_blank"
                   icon="i-simple-icons-monero"
-                  :label="$t('contact.monero')"
+                  label="请给我钱"
                   variant="outline"
                 />
               </div>
@@ -80,7 +80,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 to="https://blog.ski.ink"
                 target="_blank"
                 icon="i-lucide-book-open"
-                :label="$t('websites.blog')"
+                label="博客"
                 block
                 size="lg"
                 variant="outline"
@@ -89,7 +89,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 to="https://saltwood.top:3001/status/all"
                 target="_blank"
                 icon="i-lucide-activity"
-                :label="$t('websites.status')"
+                label="服务状态"
                 block
                 size="lg"
                 variant="outline"
@@ -98,7 +98,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 to="https://travellings.cn"
                 target="_blank"
                 icon="i-lucide-train-front"
-                :label="$t('websites.travellings')"
+                label="开往"
                 block
                 size="lg"
                 variant="outline"
@@ -106,7 +106,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
               <UButton
                 to="/html/watchme.html"
                 icon="i-lucide-eye"
-                :label="$t('websites.watchme')"
+                label="视奸我"
                 block
                 size="lg"
                 variant="outline"
@@ -119,7 +119,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
         <section class="section-card">
           <h2 class="section-title">Technology Stacks</h2>
           <div class="section-body">
-            <p class="mb-6" v-html="$t('tech.description')" />
+            <p class="mb-6" v-html="'盐木一直比较闲的说！<br>如果你和我关系还算不错，欢迎随时来请教技术上的问题哦qwq<br>要我写项目也不是不行啦……只是神金学校放假太少很大可能写不完（悲）<br><div style=&quot;font-size: 0.6em;&quot;>我会的都在下面啦（小声）</div>'" />
             <div class="flex flex-wrap gap-3">
               <img
                 v-for="tech in techBadges"
@@ -137,7 +137,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
         <section class="section-card">
           <h2 class="section-title">Games</h2>
           <div class="section-body">
-            <p class="mb-6">{{ $t('games.title') }}</p>
+            <p class="mb-6">这里是盐木做的一些 HTML 小游戏！</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               <UButton
                 to="/html/2048.html"
@@ -150,7 +150,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
               <UButton
                 to="/html/firework.html"
                 icon="i-lucide-sparkles"
-                :label="$t('games.firework')"
+                label="烟花"
                 block
                 variant="outline"
                 size="lg"
@@ -158,7 +158,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
               <UButton
                 to="/html/tetris.html"
                 icon="i-lucide-layout-grid"
-                :label="$t('games.tetris')"
+                label="俄罗斯方块"
                 block
                 variant="outline"
                 size="lg"
@@ -166,7 +166,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
               <UButton
                 to="/html/minesweeper.html"
                 icon="i-lucide-bomb"
-                :label="$t('games.minesweeper')"
+                label="扫雷"
                 block
                 variant="outline"
                 size="lg"
@@ -174,7 +174,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
               <UButton
                 to="/html/balls.html"
                 icon="i-lucide-circle"
-                :label="$t('games.balls')"
+                label="小球"
                 block
                 variant="outline"
                 size="lg"
@@ -187,7 +187,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
         <section class="section-card">
           <h2 class="section-title">Friends</h2>
           <div class="section-body">
-            <p class="mb-6" v-html="$t('friends.desc')" />
+            <p class="mb-6" v-html="'这里放一些好朋友的友链！<br>如果你没在这里看到你的链接，不妨去<a href=&quot;https://blog.ski.ink/friends&quot; target=&quot;_blank&quot;>这里</a>看看？<br>'" />
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <PersonCard
                 v-for="friend in friends"

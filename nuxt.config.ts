@@ -2,8 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui',
-    '@nuxtjs/i18n'
+    '@nuxt/ui'
   ],
 
   devtools: {
@@ -30,26 +29,6 @@ export default defineNuxtConfig({
           'defer': true
         }
       ]
-    }
-  },
-
-  i18n: {
-    locales: [
-      { code: 'zh-CN', file: 'zh-CN.json', name: '简体中文' },
-      { code: 'zh-TW', file: 'zh-TW.json', name: '繁體中文' },
-      { code: 'en', file: 'en.json', name: 'English' }
-    ],
-    defaultLocale: 'zh-CN',
-    strategy: 'no_prefix',
-    lazy: true,
-    langDir: 'locales',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_lang',
-      redirectOn: 'root'
-    },
-    compilation: {
-      strictMessage: false
     }
   },
 
