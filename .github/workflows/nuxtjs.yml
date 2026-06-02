@@ -68,3 +68,19 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Purge Cloudflare Cache
+  purge-cache:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Purge specific domain
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{
+              "hosts": [
+                "ski.ink"
+              ]
+            }'
