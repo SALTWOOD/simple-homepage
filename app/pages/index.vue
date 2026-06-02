@@ -112,7 +112,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 variant="outline"
               />
               <UButton
-                to="/html/watchme.html"
+                to="/games/watchme"
                 icon="i-lucide-eye"
                 :label="$t('websites.watchme')"
                 block
@@ -157,7 +157,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               <UButton
-                to="/html/2048.html"
+                to="/games/2048"
                 icon="i-lucide-grid-2x2"
                 label="2048"
                 block
@@ -165,7 +165,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 size="lg"
               />
               <UButton
-                to="/html/firework.html"
+                to="/games/firework"
                 icon="i-lucide-sparkles"
                 :label="$t('games.firework')"
                 block
@@ -173,7 +173,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 size="lg"
               />
               <UButton
-                to="/html/tetris.html"
+                to="/games/tetris"
                 icon="i-lucide-layout-grid"
                 :label="$t('games.tetris')"
                 block
@@ -181,7 +181,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 size="lg"
               />
               <UButton
-                to="/html/minesweeper.html"
+                to="/games/minesweeper"
                 icon="i-lucide-bomb"
                 :label="$t('games.minesweeper')"
                 block
@@ -189,7 +189,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 size="lg"
               />
               <UButton
-                to="/html/balls.html"
+                to="/games/balls"
                 icon="i-lucide-circle"
                 :label="$t('games.balls')"
                 block
