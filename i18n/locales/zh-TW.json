@@ -1,0 +1,51 @@
+{
+  "banner": "歡迎光臨 SALTWOOD 的主頁~",
+  "title": "鹽木的主頁",
+  "nav": {
+    "home": "鹽木的主頁",
+    "travellings": "開往",
+    "blog": "部落格",
+    "dark_mode": "深色模式",
+    "language": "語言"
+  },
+  "about": {
+    "description1": "來自廣東省的一個普通高中生",
+    "description2": "愛折騰程式設計，喜歡聊天，啥都想做卻啥都做不好",
+    "content": "來自廣東省的一位學生，網名 <strong>SaltWood_233</strong>，大家可以叫我<strong>鹽木</strong>！<br>喜歡寫寫程式碼、玩玩遊戲，和聽歌~<br>愛玩碧藍航線之類的二遊、部分音遊、戰艦世界和 Minecraft！<br>"
+  },
+  "contact": {
+    "email": "電子信箱",
+    "blog": "部落格",
+    "monero": "给我打錢"
+  },
+  "websites": {
+    "blog": "部落格",
+    "status": "服務狀態",
+    "travellings": "開往",
+    "watchme": "偷窺我"
+  },
+  "tech": {
+    "description": "鹽木一直比較閒的說！<br>如果你和我關係還不錯，歡迎隨時來請教技術上的問題哦qwq<br>要我寫專案也不是不行啦……只是神金學校放假太少很大可能寫不完（悲）<br><div style=\"font-size: 0.6em;\">我會的都在下面啦（小聲）</div>"
+  },
+  "games": {
+    "title": "這裡是鹽木做的一些 HTML 小遊戲！",
+    "firework": "煙花",
+    "tetris": "俄羅斯方塊",
+    "minesweeper": "踩地雷",
+    "balls": "小球"
+  },
+  "friends": {
+    "desc": "這裡放一些好朋友的友鏈！<br>如果你沒在這裡看到你的連結，不妨去<a href=\"https://blog.ski.ink/friends\" target=\"_blank\">這裡</a>看看？<br>"
+  },
+  "footer": {
+    "background": "背景圖 (PID: 126628153) 已得到作者授權使用",
+    "open_source": "<i class=\"fa-brands fa-github\"></i> 本專案已在 <a href=\"https://github.com/SALTWOOD/simple-homepage\" target=\"_blank\">GitHub</a> 開源<br>"
+  },
+  "404": {
+    "emoji": "(っ °Д °;)っ",
+    "title": "404 Not Found",
+    "message": "啊哦，頁面被腐蝕了",
+    "back": "返回",
+    "home": "首頁"
+  }
+}

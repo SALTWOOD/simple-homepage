@@ -1,20 +1,64 @@
-<div align="center">
+# Nuxt Starter Template
 
-![simple-homepage](https://socialify.git.ci/SALTWOOD/simple-homepage/image?description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto)
+[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
 
-# simple-homepage
-✨ **盐木小废物自己写的纯 HTML 个人主页** ✨
-</div>
+Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
 
-> [!WARNING]
-> 这个项目存在各种问题，包括代码过于史山、各种只适用于我自己网站的设定，最好不要使用。
-> 如果你选择使用这个项目，请务必修改 `index.html`，否则会炸。
+- [Live demo](https://starter-template.nuxt.dev/)
+- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
 
-# 简介
-这是我自己写的纯 HTML 个人主页，旨在展示自己的一些信息，同时为我的域名的根域放些东西以免直接通到博客。
+<a href="https://starter-template.nuxt.dev/" target="_blank">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
+    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
+  </picture>
+</a>
 
-# 如何使用
-1. 克隆或下载本仓库到本地。
-2. 根据示例文件填充你自己的 `index.html`、`index.js` 和 `style.css` 文件。
-3. 使用如 Nginx、Apache 之类的服务器软件将整个项目部署到你的服务器上。
-4. 打开浏览器访问你的站点，就可以看到你的个人主页了。
+> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+
+## Quick Start
+
+```bash [Terminal]
+npm create nuxt@latest -- -t ui
+```
+
+## Deploy your own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+
+## Setup
+
+Make sure to install the dependencies:
+
+```bash
+pnpm install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+pnpm dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+pnpm build
+```
+
+Locally preview production build:
+
+```bash
+pnpm preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Renovate integration
+
+Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.

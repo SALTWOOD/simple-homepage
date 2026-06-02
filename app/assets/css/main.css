@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Source Sans 3', 'Noto Sans SC', sans-serif;
+
+  --color-amber-50: #FFFBEB;
+  --color-amber-100: #FEF3C7;
+  --color-amber-200: #FDE68A;
+  --color-amber-300: #FCD34D;
+  --color-amber-400: #FBBF24;
+  --color-amber-500: #F59E0B;
+  --color-amber-600: #D97706;
+  --color-amber-700: #B45309;
+  --color-amber-800: #92400E;
+  --color-amber-900: #78350F;
+  --color-amber-950: #451A03;
+}
+
+/* Fixed background image */
+.page-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/backgrounds/background.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(0px) brightness(1);
+  transition: filter 0.3s ease;
+}
+
+.page-background.blurred {
+  filter: blur(3px) brightness(0.8);
+}
+
+@media (max-width: 768px) {
+  .page-background {
+    background-image: url('/backgrounds/background-mobile.webp');
+  }
+}
+
+/* Badge images */
+.tech-badge {
+  height: 28px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-5px) translateX(-50%);
+  }
+}
