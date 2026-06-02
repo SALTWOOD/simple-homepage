@@ -1,16 +1,6 @@
 <script setup lang="ts">
 const { locale, locales, setLocale, t } = useI18n()
-const colorMode = useColorMode()
 const scrolled = ref(false)
-
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set(val: boolean) {
-    colorMode.preference = val ? 'dark' : 'light'
-  }
-})
 
 function cycleLocale() {
   const codes = (locales.value as Array<{ code: string, name: string }>).map(l => l.code)
@@ -35,11 +25,6 @@ const mobileMenuItems = computed(() => [
     }
   ],
   [
-    {
-      label: t('nav.dark_mode'),
-      icon: isDark.value ? 'i-lucide-moon' : 'i-lucide-sun',
-      onSelect: () => { isDark.value = !isDark.value }
-    },
     {
       label: t('nav.language'),
       icon: 'i-lucide-languages',
@@ -107,14 +92,7 @@ onUnmounted(() => {
             :label="$t('nav.travellings')"
             class="nav-labeled-btn"
           />
-          <UButton
-            :icon="isDark ? 'i-lucide-moon' : 'i-lucide-sun'"
-            color="neutral"
-            variant="ghost"
-            size="sm"
-            :aria-label="$t('nav.dark_mode')"
-            @click="isDark = !isDark"
-          />
+          <UColorModeButton />
           <UButton
             icon="i-lucide-languages"
             color="neutral"
@@ -125,7 +103,8 @@ onUnmounted(() => {
           />
         </div>
 
-        <div class="md:hidden">
+        <div class="flex md:hidden items-center gap-1">
+          <UColorModeButton />
           <UDropdownMenu :items="mobileMenuItems">
             <UButton
               icon="i-lucide-menu"
