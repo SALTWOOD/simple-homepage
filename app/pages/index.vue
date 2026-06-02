@@ -278,5 +278,15 @@ import { techBadges, friends } from '~/composables/useSiteData'
   .section-body {
     padding: 0;
   }
+
+  .main-content :deep(> div) {
+    padding-left: 0;
+    padding-right: 0;
+    gap: 0;
+  }
+
+  .section-card {
+    padding: 1rem 0.75rem;
+  }
 }
 </style>
