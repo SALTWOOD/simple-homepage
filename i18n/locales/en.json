@@ -1,0 +1,51 @@
+{
+  "banner": "Welcome to SALTWOOD's Homepage!",
+  "title": "SALTWOOD's Homepage",
+  "nav": {
+    "home": "SALTWOOD's Homepage",
+    "travellings": "Travellings",
+    "blog": "Blog",
+    "dark_mode": "Dark Mode",
+    "language": "Language"
+  },
+  "about": {
+    "description1": "A high school student from Guangdong",
+    "description2": "Love tinkering with code, chatting, want to do everything but can't do anything well",
+    "content": "A student from Guangdong, online name <strong>SaltWood_233</strong>, you can call me <strong>SaltWood</strong>!<br>I like coding, playing games, and listening to music~<br>I play Azur Lane and similar gacha games, some rhythm games, World of Warships and Minecraft!<br>"
+  },
+  "contact": {
+    "email": "Email",
+    "blog": "Blog",
+    "monero": "Give me money"
+  },
+  "websites": {
+    "blog": "Blog",
+    "status": "Status",
+    "travellings": "Travellings",
+    "watchme": "Snoop on Me"
+  },
+  "tech": {
+    "description": "SaltWood is pretty free!<br>If we're on good terms, feel free to ask me tech questions anytime qwq<br>I can write projects too... just that my school gives too few holidays so I probably won't finish (sad)<br><div style=\"font-size: 0.6em;\">Here's what I know (whispers)</div>"
+  },
+  "games": {
+    "title": "Here are some HTML mini games made by SaltWood!",
+    "firework": "Fireworks",
+    "tetris": "Tetris",
+    "minesweeper": "Minesweeper",
+    "balls": "Balls"
+  },
+  "friends": {
+    "desc": "Here are some friends' links!<br>If you don't see your link here, why not check <a href=\"https://blog.ski.ink/friends\" target=\"_blank\">here</a>?<br>"
+  },
+  "footer": {
+    "background": "Background image (PID: 126628153) used with author's permission",
+    "open_source": "<i class=\"fa-brands fa-github\"></i> This project is open source on <a href=\"https://github.com/SALTWOOD/simple-homepage\" target=\"_blank\">GitHub</a><br>"
+  },
+  "404": {
+    "emoji": "(っ °Д °;)っ",
+    "title": "404 Not Found",
+    "message": "Oops, the page has been corrupted",
+    "back": "Back",
+    "home": "Home"
+  }
+}

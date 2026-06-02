@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { locale, locales, setLocale } = useI18n()
 const colorMode = useColorMode()
 const scrolled = ref(false)
 
@@ -10,6 +11,13 @@ const isDark = computed({
     colorMode.preference = val ? 'dark' : 'light'
   }
 })
+
+function cycleLocale() {
+  const codes = (locales.value as Array<{ code: string; name: string }>).map((l) => l.code)
+  const currentIndex = codes.indexOf(locale.value)
+  const nextIndex = (currentIndex + 1) % codes.length
+  setLocale(codes[nextIndex])
+}
 
 function handleScroll() {
   scrolled.value = window.scrollY > 50
@@ -35,7 +43,7 @@ onUnmounted(() => {
     <nav class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
       <NuxtLink to="/" class="flex items-center gap-2 text-lg font-semibold">
         <img src="/favicon.ico" alt="" class="w-6 h-6" />
-        <span>盐木的主页</span>
+        <span>{{ $t('nav.home') }}</span>
       </NuxtLink>
 
       <div class="flex items-center gap-1">
@@ -46,7 +54,7 @@ onUnmounted(() => {
           color="neutral"
           size="sm"
           icon="i-lucide-book-open"
-          label="博客"
+          :label="$t('nav.blog')"
           class="nav-labeled-btn"
         />
         <UButton
@@ -56,7 +64,7 @@ onUnmounted(() => {
           color="neutral"
           size="sm"
           icon="i-lucide-train-front"
-          label="开往"
+          :label="$t('nav.travellings')"
           class="nav-labeled-btn"
         />
         <UButton
@@ -64,8 +72,16 @@ onUnmounted(() => {
           color="neutral"
           variant="ghost"
           size="sm"
-          aria-label="深色模式"
+          :aria-label="$t('nav.dark_mode')"
           @click="isDark = !isDark"
+        />
+        <UButton
+          icon="i-lucide-languages"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          :aria-label="$t('nav.language')"
+          @click="cycleLocale"
         />
       </div>
     </nav>
@@ -80,9 +96,9 @@ onUnmounted(() => {
   <footer class="footer">
     <div class="footer-content">
       <p class="footer-text">
-        背景图 (PID: 126628153) 已得到作者授权使用
+        {{ $t('footer.background') }}
       </p>
-      <p class="footer-text" v-html="'<i class=&quot;fa-brands fa-github&quot;></i> 本项目已在 <a href=&quot;https://github.com/SALTWOOD/simple-homepage&quot; target=&quot;_blank&quot;>GitHub</a> 开源<br>'" />
+      <p class="footer-text" v-html="$t('footer.open_source')" />
       <div class="flex flex-col items-center gap-y-1 footer-text">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="hover:underline">
           闽ICP备2024070515号-4
