@@ -67,8 +67,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                   variant="outline"
                 />
                 <UButton
-                  to="https://saltwood.top:5244/d/Monero/wallet_address.txt"
-                  target="_blank"
+                  to="monero:47AUhaafGKJKEiycvvSWtL4uYR3MKcWDbV9nWX6QzuXhMRvdjayxD4ELGwArcZYdPuJe6KgFc7tzsZYWbtTmcUChJagiWcZ"
                   icon="i-simple-icons-monero"
                   :label="$t('contact.monero')"
                   variant="outline"
