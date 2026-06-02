@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { locale, locales, setLocale } = useI18n()
+const { locale, locales, setLocale, t } = useI18n()
 const colorMode = useColorMode()
 const scrolled = ref(false)
 
@@ -18,6 +18,35 @@ function cycleLocale() {
   const nextIndex = (currentIndex + 1) % codes.length
   setLocale(codes[nextIndex])
 }
+
+const mobileMenuItems = computed(() => [
+  [
+    {
+      label: t('nav.blog'),
+      icon: 'i-lucide-book-open',
+      to: 'https://blog.ski.ink',
+      target: '_blank'
+    },
+    {
+      label: t('nav.travellings'),
+      icon: 'i-lucide-train-front',
+      to: 'https://travellings.cn',
+      target: '_blank'
+    }
+  ],
+  [
+    {
+      label: t('nav.dark_mode'),
+      icon: isDark.value ? 'i-lucide-moon' : 'i-lucide-sun',
+      onSelect: () => { isDark.value = !isDark.value }
+    },
+    {
+      label: t('nav.language'),
+      icon: 'i-lucide-languages',
+      onSelect: cycleLocale
+    }
+  ]
+])
 
 function handleScroll() {
   scrolled.value = window.scrollY > 50
@@ -57,7 +86,7 @@ onUnmounted(() => {
           <span>{{ $t('nav.home') }}</span>
         </NuxtLink>
 
-        <div class="flex items-center gap-1">
+        <div class="hidden md:flex items-center gap-1">
           <UButton
             to="https://blog.ski.ink"
             target="_blank"
@@ -94,6 +123,18 @@ onUnmounted(() => {
             :aria-label="$t('nav.language')"
             @click="cycleLocale"
           />
+        </div>
+
+        <div class="md:hidden">
+          <UDropdownMenu :items="mobileMenuItems">
+            <UButton
+              icon="i-lucide-menu"
+              variant="ghost"
+              color="neutral"
+              size="sm"
+              :aria-label="$t('nav.menu')"
+            />
+          </UDropdownMenu>
         </div>
       </nav>
     </header>

@@ -15,12 +15,12 @@ const _props = defineProps<Props>()
     v-if="link"
     :to="link"
     target="_blank"
-    class="block"
+    class="block w-full"
   >
     <UCard
-      class="hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 cursor-pointer h-full"
+      class="hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 cursor-pointer h-full overflow-hidden"
     >
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 overflow-hidden">
         <img
           :src="avatar"
           :alt="name"
@@ -51,9 +51,9 @@ const _props = defineProps<Props>()
 
   <UCard
     v-else
-    class="h-full"
+    class="h-full overflow-hidden"
   >
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 overflow-hidden">
       <img
         :src="avatar"
         :alt="name"
