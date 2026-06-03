@@ -3,6 +3,7 @@ definePageMeta({ layout: 'game' })
 
 useHead({ title: '烟花' })
 
+// ── Interfaces ──
 interface Particle {
   id: number
   tx: number
@@ -16,55 +17,70 @@ interface Particle {
 
 interface Trail {
   id: number
-  x: number
-  y: number
+  startX: number
+  startY: number
+  travelY: number // Relative distance to travel upwards (negative value)
   hue: number
 }
 
+// ── Reactive State ──
 const particles = ref<Particle[]>([])
 const trails = ref<Trail[]>([])
 const showTip = ref(true)
 
 let nextId = 0
 
-function createFirework(x: number, y: number) {
-  const trailCount = 3
-  for (let i = 0; i < trailCount; i++) {
-    const trail: Trail = {
-      id: nextId++,
-      x,
-      y,
-      hue: Math.random() * 360,
-    }
-    trails.value.push(trail)
-    const trailId = trail.id
-    setTimeout(() => {
-      trails.value = trails.value.filter(t => t.id !== trailId)
-    }, 800)
-  }
+// Helper function to handle async timing between launch and explosion
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
+// ── Core Logic ──
+async function createFirework(targetX: number, targetY: number) {
+  const launchDuration = 800 // Must match the CSS animation duration (0.8s)
+  const startY = window.innerHeight // Launch from the bottom of the viewport
+  const travelY = targetY - startY   // Pixel distance to travel upwards
+
+  // 1. Spawn launch trail
+  const trail: Trail = {
+    id: nextId++,
+    startX: targetX,
+    startY: startY,
+    travelY: travelY,
+    hue: Math.random() * 360
+  }
+  trails.value.push(trail)
+
+  // Clean up trail data after animation finishes
+  setTimeout(() => {
+    trails.value = trails.value.filter(t => t.id !== trail.id)
+  }, launchDuration)
+
+  // 2. Wait for the shell to reach the apex (target height)
+  await delay(launchDuration)
+
+  // 3. Trigger explosion particles at the apex
   const particleCount = Math.floor(Math.random() * 30 + 125)
-  const hue = Math.random() * 360
+  const hue = trail.hue // Keep particle colors consistent with the trail
 
   for (let i = 0; i < particleCount; i++) {
     const angle = Math.PI * 2 * Math.random()
-    const velocity = Math.random() * 300 + 100
+    const velocity = Math.random() * 250 + 80
     const duration = Math.random() * 0.5 + 1
 
     const particle: Particle = {
       id: nextId++,
       tx: Math.cos(angle) * velocity,
       ty: Math.sin(angle) * velocity,
-      x,
-      y,
-      hue: hue + Math.random() * 60 - 30,
-      size: Math.random() * 5 + 4,
-      duration,
+      x: targetX,
+      y: targetY,
+      hue: hue + Math.random() * 40 - 20,
+      size: Math.random() * 4 + 3,
+      duration
     }
     particles.value.push(particle)
-    const particleId = particle.id
+
+    // Clean up individual particle after its duration ends
     setTimeout(() => {
-      particles.value = particles.value.filter(p => p.id !== particleId)
+      particles.value = particles.value.filter(p => p.id !== particle.id)
     }, duration * 1000)
   }
 }
@@ -73,6 +89,7 @@ function handleClick(e: MouseEvent) {
   createFirework(e.clientX, e.clientY)
 }
 
+// ── Lifecycle Hooks ──
 onMounted(() => {
   setTimeout(() => {
     showTip.value = false
@@ -82,17 +99,22 @@ onMounted(() => {
 
 <template>
   <div class="firework-canvas" @click="handleClick">
-    <div v-if="showTip" class="tip">点击屏幕燃放烟花</div>
+    <div v-if="showTip" class="tip">
+      点击屏幕燃放烟花
+    </div>
+
     <div
       v-for="trail in trails"
       :key="trail.id"
       class="launch"
       :style="{
-        left: `${trail.x}px`,
-        top: `${trail.y}px`,
+        ['--ty' as string]: `${trail.travelY}px`,
+        left: `${trail.startX}px`,
+        top: `${trail.startY}px`,
         background: `hsl(${trail.hue}, 100%, 50%)`,
       }"
     />
+
     <div
       v-for="particle in particles"
       :key="particle.id"
@@ -105,7 +127,7 @@ onMounted(() => {
         width: `${particle.size}px`,
         height: `${particle.size}px`,
         background: `hsl(${particle.hue}, 100%, 50%)`,
-        animationDuration: `${particle.duration}s`,
+        animationDuration: `${particle.duration}s`
       }"
     />
   </div>
@@ -133,22 +155,26 @@ onMounted(() => {
   animation: fadeOut 1.5s ease-in-out 3s forwards;
 }
 
+/* Explosion particle styling */
 .firework {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #fff;
   border-radius: 50%;
   animation: explode 1s ease-out forwards;
-  filter: blur(1px);
+  filter: blur(0.5px);
+  transform: translate(0, 0);
+  pointer-events: none;
 }
 
+/* Rising trail styling */
 .launch {
   position: absolute;
   width: 3px;
-  height: 15px;
-  background: #fff;
-  animation: rise 0.8s ease-out;
+  height: 25px;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  /* Cubic-bezier curve creates a realistic deceleration effect near apex */
+  animation: rise 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  pointer-events: none;
 }
 
 @keyframes explode {
@@ -163,8 +189,15 @@ onMounted(() => {
 }
 
 @keyframes rise {
-  to {
-    transform: translateY(-100vh) rotate(180deg);
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--ty));
     opacity: 0;
   }
 }
