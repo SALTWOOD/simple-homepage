@@ -112,7 +112,7 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 variant="outline"
               />
               <UButton
-                to="/games/watchme"
+                to="/tools/watchme"
                 icon="i-lucide-eye"
                 :label="$t('websites.watchme')"
                 block
