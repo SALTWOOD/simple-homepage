@@ -354,7 +354,7 @@ function startGame(): void {
   animFrameId = requestAnimationFrame(gameLoop)
 }
 
-useEventListener('keydown', (e: KeyboardEvent) => {
+const onKeyDownTetris = (e: KeyboardEvent) => {
   if (e.key === 'Enter') {
     e.preventDefault()
     startGame()
@@ -394,7 +394,9 @@ useEventListener('keydown', (e: KeyboardEvent) => {
       hardDrop()
       break
   }
-})
+}
+onMounted(() => window.addEventListener('keydown', onKeyDownTetris))
+onUnmounted(() => window.removeEventListener('keydown', onKeyDownTetris))
 
 // ── Lifecycle ──
 onMounted(() => {

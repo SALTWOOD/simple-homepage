@@ -201,9 +201,16 @@ onUnmounted(() => {
   }
 })
 
-useEventListener('resize', useDebounceFn(() => {
-  initScene()
-}, 200))
+let resizeTimer: ReturnType<typeof setTimeout> | null = null
+const onResize = () => {
+  if (resizeTimer) clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(() => initScene(), 200)
+}
+onMounted(() => window.addEventListener('resize', onResize))
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
+  if (resizeTimer) clearTimeout(resizeTimer)
+})
 </script>
 
 <template>

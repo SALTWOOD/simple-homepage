@@ -207,12 +207,14 @@ function cellValueClass(value: number): string {
   return known.includes(value) ? `cell-${value}` : ''
 }
 
-useEventListener('keydown', (e: KeyboardEvent) => {
+const onKeyDown2048 = (e: KeyboardEvent) => {
   if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
     e.preventDefault()
     handleMove(e.key)
   }
-})
+}
+onMounted(() => window.addEventListener('keydown', onKeyDown2048))
+onUnmounted(() => window.removeEventListener('keydown', onKeyDown2048))
 
 // Touch support
 let touchStartX = 0
