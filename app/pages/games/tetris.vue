@@ -627,12 +627,15 @@ onUnmounted(() => {
 }
 
 .overlay-content {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
   color: #ecf0f1;
 }
 
 .overlay-title {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.5px;
