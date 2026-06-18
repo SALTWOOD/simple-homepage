@@ -132,6 +132,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import type { Socket } from 'socket.io-client'
+import { io } from 'socket.io-client'
 
 // --- Types ---
 interface PlayerState {
@@ -147,6 +149,8 @@ interface PlayerState {
 }
 
 const BASE_URL = 'https://saltwood.top:33123'
+let socket: Socket | null = null
+
 const playerState = ref<PlayerState | null>(null)
 const sliderPosition = ref(0)
 const volumeSliderPosition = ref(0)
@@ -155,8 +159,6 @@ const thumbnailTimestamp = ref(Date.now())
 const hasThumbnailError = ref(false)
 const isUserDragging = ref(false)
 const isUserDraggingVolume = ref(false)
-
-let pollingTimer: ReturnType<typeof setInterval> | null = null
 
 const isPlaying = computed(() => playerState.value?.state === 'playing')
 
@@ -167,39 +169,26 @@ const thumbnailUrl = computed(() => {
   return `${BASE_URL}/api/image?t=${thumbnailTimestamp.value}`
 })
 
-const fetchState = async (): Promise<void> => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/state`)
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        isOnline.value = false
-        return
-      }
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const data: PlayerState = await response.json()
-
-    if (playerState.value?.title !== data.title) {
-      thumbnailTimestamp.value = Date.now()
-      hasThumbnailError.value = false
-    }
-
-    playerState.value = data
-    isOnline.value = true
-
-    if (!isUserDragging.value) {
-      sliderPosition.value = data.currentposition
-    }
-
-    if (!isUserDraggingVolume.value) {
-      volumeSliderPosition.value = data.volume
-    }
-  } catch (error) {
-    console.error('Failed to fetch player state via POST:', error)
-    isOnline.value = false
+function onStateUpdate(data: PlayerState) {
+  if (playerState.value?.title !== data.title) {
+    thumbnailTimestamp.value = Date.now()
+    hasThumbnailError.value = false
   }
+
+  playerState.value = data
+
+  if (!isUserDragging.value) {
+    sliderPosition.value = data.currentposition
+  }
+
+  if (!isUserDraggingVolume.value) {
+    volumeSliderPosition.value = data.volume
+  }
+}
+
+function onThumbnailUpdate(data: { timestamp: number }) {
+  thumbnailTimestamp.value = data.timestamp
+  hasThumbnailError.value = false
 }
 
 const sendControl = async (command: 'play' | 'pause' | 'previous' | 'next' | 'stop'): Promise<void> => {
@@ -207,13 +196,11 @@ const sendControl = async (command: 'play' | 'pause' | 'previous' | 'next' | 'st
     const response = await fetch(`${BASE_URL}/api/${command}`, {
       method: 'POST'
     })
-
     if (!response.ok) {
-      throw new Error(`Command implementation failed: ${command}`)
+      throw new Error(`Command failed: ${command}`)
     }
-    await fetchState()
   } catch (error) {
-    console.error(`Failed to send POST command [${command}]:`, error)
+    console.error(`Failed to send command [${command}]:`, error)
   }
 }
 
@@ -229,23 +216,18 @@ const handleSeekStart = (): void => {
 const handleSeekEnd = async (): Promise<void> => {
   try {
     const targetPosition = Math.round(sliderPosition.value)
-
     const response = await fetch(`${BASE_URL}/api/seek`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: targetPosition })
     })
-
     if (!response.ok) {
-      throw new Error(`Seek implementation failed with value: ${targetPosition}`)
+      throw new Error(`Seek failed with value: ${targetPosition}`)
     }
   } catch (error) {
     console.error('Failed to execute seek operation:', error)
   } finally {
     isUserDragging.value = false
-    await fetchState()
   }
 }
 
@@ -256,23 +238,18 @@ const handleVolumeStart = (): void => {
 const handleVolumeEnd = async (): Promise<void> => {
   try {
     const targetVolume = Math.round(volumeSliderPosition.value)
-
     const response = await fetch(`${BASE_URL}/api/setvolume`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: targetVolume })
     })
-
     if (!response.ok) {
-      throw new Error(`Set volume implementation failed with value: ${targetVolume}`)
+      throw new Error(`Set volume failed with value: ${targetVolume}`)
     }
   } catch (error) {
     console.error('Failed to execute set volume operation:', error)
   } finally {
     isUserDraggingVolume.value = false
-    await fetchState()
   }
 }
 
@@ -289,14 +266,28 @@ const formatTime = (seconds: number | undefined): string => {
 }
 
 onMounted(() => {
-  fetchState()
-  pollingTimer = setInterval(fetchState, 1000)
+  socket = io(BASE_URL, {
+    transports: ['websocket']
+  })
+
+  socket.on('connect', () => {
+    isOnline.value = true
+  })
+
+  socket.on('disconnect', () => {
+    isOnline.value = false
+  })
+
+  socket.on('stateUpdate', onStateUpdate)
+  socket.on('thumbnailUpdate', onThumbnailUpdate)
 })
 
 onUnmounted(() => {
-  if (pollingTimer) {
-    clearInterval(pollingTimer)
-    pollingTimer = null
+  if (socket) {
+    socket.off('stateUpdate', onStateUpdate)
+    socket.off('thumbnailUpdate', onThumbnailUpdate)
+    socket.disconnect()
+    socket = null
   }
 })
 </script>
