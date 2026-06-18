@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxt/icon'
   ],
 
   devtools: {
@@ -58,7 +59,6 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'zh-CN',
     strategy: 'no_prefix',
-    lazy: true,
     langDir: 'locales',
     detectBrowserLanguage: {
       useCookie: true,
@@ -67,6 +67,18 @@ export default defineNuxtConfig({
     },
     compilation: {
       strictMessage: false
+    }
+  },
+  icon: {
+    serverBundle: {
+      collections: ['lucide']
+    },
+    clientBundle: {
+      scan: true,
+      icons: [
+        'lucide:pause',
+        'lucide:play'
+      ]
     }
   }
 })
