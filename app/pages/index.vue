@@ -119,6 +119,14 @@ import { techBadges, friends } from '~/composables/useSiteData'
                 size="lg"
                 variant="outline"
               />
+              <UButton
+                to="/tools/smtc"
+                icon="i-lucide-music"
+                :label="$t('websites.smtc')"
+                block
+                size="lg"
+                variant="outline"
+              />
             </div>
           </div>
         </section>
