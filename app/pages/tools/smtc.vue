@@ -93,21 +93,37 @@
       </div>
 
       <template #footer>
-        <div class="flex justify-between items-center text-xs text-zinc-500 border-t border-zinc-800 pt-2">
-          <span class="flex items-center gap-1">
-            <UIcon name="i-lucide-volume-2" />
-            {{ playerState?.volume ?? 0 }}%
-          </span>
-          <span
-            class="flex items-center gap-1"
-            :class="isOnline ? 'text-emerald-500' : 'text-zinc-500'"
-          >
-            <span
-              class="h-2 w-2 rounded-full bg-current"
-              :class="{ 'animate-pulse': isOnline }"
+        <div class="flex flex-col gap-3 border-t border-zinc-800 pt-2 text-xs text-zinc-500">
+          <div class="flex items-center gap-2">
+            <UIcon
+              :name="volumeSliderPosition === 0 ? 'i-lucide-volume-x' : 'i-lucide-volume-2'"
+              class="w-4 h-4 shrink-0"
             />
-            {{ isOnline ? '已连接' : '未连接' }}
-          </span>
+            <USlider
+              v-model="volumeSliderPosition"
+              :max="100"
+              :step="1"
+              color="neutral"
+              size="xs"
+              @update:model-value="handleVolumeStart"
+              @change="handleVolumeEnd"
+            />
+            <span class="w-8 text-right shrink-0">{{ volumeSliderPosition }}%</span>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <span>Status Panel</span>
+            <span
+              class="flex items-center gap-1"
+              :class="isOnline ? 'text-emerald-500' : 'text-zinc-500'"
+            >
+              <span
+                class="h-2 w-2 rounded-full bg-current"
+                :class="{ 'animate-pulse': isOnline }"
+              />
+              {{ isOnline ? '已连接' : '未连接' }}
+            </span>
+          </div>
         </div>
       </template>
     </UCard>
@@ -133,10 +149,12 @@ interface PlayerState {
 const BASE_URL = 'https://saltwood.top:33123'
 const playerState = ref<PlayerState | null>(null)
 const sliderPosition = ref(0)
+const volumeSliderPosition = ref(0)
 const isOnline = ref(false)
 const thumbnailTimestamp = ref(Date.now())
 const hasThumbnailError = ref(false)
 const isUserDragging = ref(false)
+const isUserDraggingVolume = ref(false)
 
 let pollingTimer: ReturnType<typeof setInterval> | null = null
 
@@ -173,6 +191,10 @@ const fetchState = async (): Promise<void> => {
 
     if (!isUserDragging.value) {
       sliderPosition.value = data.currentposition
+    }
+
+    if (!isUserDraggingVolume.value) {
+      volumeSliderPosition.value = data.volume
     }
   } catch (error) {
     console.error('Failed to fetch player state via POST:', error)
@@ -223,6 +245,33 @@ const handleSeekEnd = async (): Promise<void> => {
     console.error('Failed to execute seek operation:', error)
   } finally {
     isUserDragging.value = false
+    await fetchState()
+  }
+}
+
+const handleVolumeStart = (): void => {
+  isUserDraggingVolume.value = true
+}
+
+const handleVolumeEnd = async (): Promise<void> => {
+  try {
+    const targetVolume = Math.round(volumeSliderPosition.value)
+
+    const response = await fetch(`${BASE_URL}/api/setvolume`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data: targetVolume })
+    })
+
+    if (!response.ok) {
+      throw new Error(`Set volume implementation failed with value: ${targetVolume}`)
+    }
+  } catch (error) {
+    console.error('Failed to execute set volume operation:', error)
+  } finally {
+    isUserDraggingVolume.value = false
     await fetchState()
   }
 }
