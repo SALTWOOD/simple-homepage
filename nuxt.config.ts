@@ -24,7 +24,7 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          'src': 'https://saltwood.top:3033/script.js',
+          'src': 'https://stats.ski.ink/script.js',
           'data-website-id': '97184747-f3f3-4a0b-83ed-9a08f53822b9',
           'defer': true
         }
